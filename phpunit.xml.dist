@@ -1,0 +1,9 @@
+<!-- phpunit.xml.dist -->
+<phpunit>
+    <testsuites>
+        <testsuite name="Yaml CLI Test Suite">
+            <directory>tests/phpunit</directory>
+        </testsuite>
+    </testsuites>
+
+</phpunit>

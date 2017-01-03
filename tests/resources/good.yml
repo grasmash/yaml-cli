@@ -1,0 +1,10 @@
+deep-array:
+  second:
+    third:
+      fourth: hello world
+flat-array:
+  - one
+  - two
+  - three
+null-value: ~
+inline-array: [ one, two, three ]
