@@ -29,7 +29,4 @@ before_script:
   - git diff --exit-code
 
 script:
-  - phpcs --standard=PSR2 src --exclude=Generic.Files.LineLength
-  - phpcs --standard=PSR2 tests/rc --exclude=Generic.Files.LineLength
-  # Running phpunit globally can cause Composer autoloading to fail.
-  - ./vendor/bin/phpunit
+  - ./scripts/run-tests.sh
