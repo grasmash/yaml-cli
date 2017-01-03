@@ -1,7 +1,13 @@
 <?php
 
 set_time_limit(0);
-require __DIR__ . '/../vendor/autoload.php';
+
+$repo_root = __DIR__ . '/../';
+if (file_exists($repo_root . '/vendor/autoload.php')) {
+    require_once $repo_root  . '/vendor/autoload.php';
+} elseif (file_exists(__DIR__ . '/../../autoload.php')) {
+    require_once __DIR__ . '/../../autoload.php';
+}
 
 use Grasmash\YamlCli\Command\GetValueCommand;
 use Grasmash\YamlCli\Command\UpdateValueCommand;
