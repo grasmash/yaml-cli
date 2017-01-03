@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/grasmash/yaml-cli.svg?branch=master)](https://travis-ci.org/grasmash/yaml-cli)
 
-A command line tool for reading and manipulating yaml files.
+A command line tool for reading and manipulating yaml files, built on the [Symfony console component](http://symfony.com/doc/current/components/console.html).
 
 Commands:
 
@@ -13,3 +13,4 @@ Commands:
 Example usage:
 
     ./vendor/bin/yaml-cli get:value somefile.yml some-key
+    ./vendor/bin/yaml-cli update:value somefile.yml some-key some-value
