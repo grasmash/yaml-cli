@@ -22,7 +22,7 @@ class GetValueTest extends TestBase
         $commandTester = new CommandTester($command);
         $commandTester->execute(array(
             'command'  => $command->getName(),
-            'file' => $file,
+            'filename' => $file,
             'key' => $key
         ));
 
@@ -30,13 +30,19 @@ class GetValueTest extends TestBase
         $this->assertContains($expected, $output);
     }
 
+    /**
+     * Provides values to testGetValue().
+     *
+     * @return array
+     *   An array of values to test.
+     */
     public function getValueProvider()
     {
 
         $file = 'tests/resources/good.yml';
 
         return [
-            [$file, 'not-real', "The key not-real does not exist in $file."],
+            [$file, 'not-real', "The key not-real does not exist."],
             ['missing.yml', 'not-real', "The file missing.yml does not exist."],
             [$file, 'deep-array.second.third.fourth', 'hello world'],
             [$file, 'flat-array', '- one

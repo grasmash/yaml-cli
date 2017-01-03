@@ -9,16 +9,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Yaml\Yaml;
 
 /**
- * @var int
- */
-const MACOSX = 33;
-
-/**
  * Class CreateProjectCommand
  *
  * @package Grasmash\YamlCli\Command
  */
-class GetValueCommand extends CommandBase
+class UpdateValueCommand extends CommandBase
 {
   /**
    * {inheritdoc}
@@ -26,8 +21,8 @@ class GetValueCommand extends CommandBase
     protected function configure()
     {
         $this
-        ->setName('get:value')
-        ->setDescription('Get a value for a specific key in a YAML file.')
+        ->setName('update:value')
+        ->setDescription('Update the value for a specific key in a YAML file.')
         ->addArgument(
             'filename',
             InputArgument::REQUIRED
@@ -35,7 +30,11 @@ class GetValueCommand extends CommandBase
          ->addArgument(
              'key',
              InputArgument::REQUIRED
-         );
+         )
+        ->addArgument(
+            'value',
+            InputArgument::REQUIRED
+        );
     }
 
   /**
@@ -48,6 +47,8 @@ class GetValueCommand extends CommandBase
     {
         $filename = $input->getArgument('filename');
         $key = $input->getArgument('key');
+        $value = $input->getArgument('value');
+
         $yaml_parsed = $this->loadYamlFile($filename);
         if (!$yaml_parsed) {
             // Exit with a status of 1.
@@ -58,8 +59,26 @@ class GetValueCommand extends CommandBase
         if (!$this->checkKeyExists($data, $key)) {
             return 1;
         }
+        $data->set($key, $value);
 
-        $value = $data->get($key);
-        $output->writeln(trim(Yaml::dump($value)));
+        try {
+            $yaml = Yaml::dump($data->export());
+        } catch (\Exception $e) {
+            $this->output->writeln("<error>There was an error dumping the yaml contents for $filename.</error>");
+            $this->output->writeln($e->getMessage());
+
+            return false;
+        }
+
+        try {
+            file_put_contents($filename, $yaml);
+        } catch (\Exception $e) {
+            $this->output->writeln("<error>There was an writing to $filename.</error>");
+            $this->output->writeln($e->getMessage());
+
+            return false;
+        }
+
+        $this->output->writeln("<info>The key '$key' was changed to '$value' in $filename.</info>");
     }
 }
