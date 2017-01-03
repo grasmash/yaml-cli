@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/grasmash/yaml-cli.svg?branch=master)](https://travis-ci.org/grasmash/yaml-cli)
+[![Build Status](https://travis-ci.org/grasmash/yaml-cli.svg?branch=master)](https://travis-ci.org/grasmash/yaml-cli) [![Packagist](https://img.shields.io/packagist/v/grasmash/yaml-cli.svg)](https://packagist.org/packages/grasmash/yaml-cli)
 
 Yet another  command line tool for reading and manipulating yaml files, built on the [Symfony console component](http://symfony.com/doc/current/components/console.html).
 
