@@ -48,7 +48,6 @@ class UpdateValueCommand extends CommandBase
         $filename = $input->getArgument('filename');
         $key = $input->getArgument('key');
         $value = $input->getArgument('value');
-
         $yaml_parsed = $this->loadYamlFile($filename);
         if (!$yaml_parsed) {
             // Exit with a status of 1.

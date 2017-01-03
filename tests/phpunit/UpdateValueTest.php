@@ -22,7 +22,9 @@ class UpdateValueTest extends TestBase
         // Make a temporary copy of good.yml so that we can update a value.
         $source = __DIR__ . '/../resources/good.yml';
         $this->temp_file = __DIR__ . '/../resources/temp.yml';
-        copy($source, $this->temp_file);
+        if (file_exists($source)) {
+            copy($source, $this->temp_file);
+        }
     }
 
     /**
@@ -55,10 +57,13 @@ class UpdateValueTest extends TestBase
         $output = $commandTester->getDisplay();
         $this->assertContains($expected, $output);
 
-        // Make sure that the file actually contains the value.
+        // If the command was successful, also make sure that the file actually
+        // contains the value.
         // @todo Use get:value to check the specific array key?
-        $contents = file_get_contents($file);
-        $this->assertContains($value, $contents);
+        if ($commandTester->getStatusCode() == 0) {
+            $contents = file_get_contents($file);
+            $this->assertContains($value, $contents);
+        }
     }
 
     /**
@@ -74,6 +79,7 @@ class UpdateValueTest extends TestBase
 
         return [
             [$file, 'deep-array.second.third.fourth', 'goodbye world', "The key 'deep-array.second.third.fourth' was changed to 'goodbye world' in tests/resources/temp.yml."],
+            ['missing.yml', 'not-real', 'whatever', "The file missing.yml does not exist."],
         ];
     }
 }
