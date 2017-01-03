@@ -2,7 +2,7 @@
 
 Yet another  command line tool for reading and manipulating yaml files, built on the [Symfony console component](http://symfony.com/doc/current/components/console.html).
 
-Commands:
+### Commands:
 
 
 | Command      | Description                                         |
@@ -10,12 +10,16 @@ Commands:
 | get:value    | Get a value for a specific key in a YAML file.      |
 | update:value | Update the value for a specific key in a YAML file. |
 
-Example usage:
+### Installation
+
+    composer require grasmash/yaml-cli
+
+### Example usage:
 
     ./vendor/bin/yaml-cli get:value somefile.yml some-key
     ./vendor/bin/yaml-cli update:value somefile.yml some-key some-value
 
-Similar tools:
+### Similar tools:
 
 - Javascript - https://github.com/pandastrike/yaml-cli
 - Ruby - https://github.com/rubyworks/yaml_command
