@@ -2,11 +2,24 @@
 
 set_time_limit(0);
 
-$repo_root = __DIR__ . '/../';
-if (file_exists($repo_root . '/vendor/autoload.php')) {
-    require_once $repo_root  . '/vendor/autoload.php';
-} elseif (file_exists(__DIR__ . '/../../autoload.php')) {
-    require_once __DIR__ . '/../../autoload.php';
+$repo_root = __DIR__ . '/..';
+
+$possible_autoloader_locations = [
+    $repo_root . '/../../autoload.php',
+    $repo_root . '/vendor/autoload.php',
+
+];
+
+foreach ($possible_autoloader_locations as $location) {
+    if (file_exists($location)) {
+        $autoloader = require_once $location;
+        break;
+    }
+}
+
+if (empty($autoloader)) {
+    echo 'Unable to autoload classes for yml-cli.' . PHP_EOL;
+    exit(1);
 }
 
 use Grasmash\YamlCli\Command\GetValueCommand;

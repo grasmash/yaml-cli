@@ -4,10 +4,10 @@
     "type": "library",
     "require": {
         "php": ">=5.6",
-        "symfony/yaml":                     "^2.8.11",
-        "symfony/console":                  "^2.8.11",
-        "symfony/filesystem":                  "^2.8.11",
-        "dflydev/dot-access-data": "dev-master"
+        "symfony/yaml":                   "^2.8.11",
+        "symfony/console":                "^2.8.11",
+        "symfony/filesystem":             "^2.8.11",
+        "dflydev/dot-access-data":        "dev-master"
     },
     "license": "MIT",
     "authors": [
@@ -19,7 +19,7 @@
     "prefer-stable": true,
     "autoload": {
         "psr-4": {
-            "Grasmash\\YamlCli\\": "src/",
+            "Grasmash\\YamlCli\\":        "src/",
             "Grasmash\\YamlCli\\Tests\\": "tests/src/"
         }
     },
@@ -27,7 +27,7 @@
       "bin/yaml-cli"
     ],
     "require-dev": {
-        "squizlabs/php_codesniffer": "^2.7",
-        "phpunit/phpunit": "^5.5.4"
+        "squizlabs/php_codesniffer":      "^2.7",
+        "phpunit/phpunit":                "^5.5.4"
     }
 }
