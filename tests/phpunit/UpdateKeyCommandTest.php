@@ -20,23 +20,7 @@ class UpdateKeyCommandTest extends TestBase
     public function setUp()
     {
         parent::setUp();
-
-        // Make a temporary copy of good.yml so that we can update a value
-        // without destroying the original.
-        $source = __DIR__ . '/../resources/good.yml';
-        $this->temp_file = __DIR__ . '/../resources/temp.yml';
-        if (file_exists($source)) {
-            copy($source, $this->temp_file);
-        }
-    }
-
-    /**
-     * Removes temporary file.
-     */
-    public function tearDown() {
-        parent::tearDown();
-
-        unlink($this->temp_file);
+        $this->setupTemporaryConfigFiles();
     }
 
     /**

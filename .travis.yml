@@ -22,7 +22,6 @@ install:
   # Load composer dependencies.
   - composer validate --no-check-all --ansi
   - composer install --optimize-autoloader
-  - export PATH=$TRAVIS_BUILD_DIR/vendor/bin:$PATH
 
 before_script:
   # Verify that no git diffs (caused by line ending variation) exist.

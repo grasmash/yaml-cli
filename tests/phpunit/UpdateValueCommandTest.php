@@ -18,23 +18,7 @@ class UpdateValueCommandTest extends TestBase
     public function setUp()
     {
         parent::setUp();
-
-        // Make a temporary copy of good.yml so that we can update a value
-        // without destroying the original.
-        $source = __DIR__ . '/../resources/good.yml';
-        $this->temp_file = __DIR__ . '/../resources/temp.yml';
-        if (file_exists($source)) {
-            copy($source, $this->temp_file);
-        }
-    }
-
-    /**
-     * Removes temporary file.
-     */
-    public function tearDown() {
-        parent::tearDown();
-
-        unlink($this->temp_file);
+        $this->setupTemporaryConfigFiles();
     }
 
     /**
@@ -59,7 +43,8 @@ class UpdateValueCommandTest extends TestBase
         $this->assertContains($expected, $output);
 
         // If the command was successful, also make sure that the file actually
-        // contains the value.
+        // contains the value. This conditional is necessary because we
+        // pass in a "missing" file as part of the test data set.
         // @todo Use get:value to check the specific array key?
         if ($commandTester->getStatusCode() == 0) {
             $contents = file_get_contents($file);
