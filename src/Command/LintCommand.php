@@ -1,0 +1,49 @@
+<?php
+
+namespace Grasmash\YamlCli\Command;
+
+use Dflydev\DotAccessData\Data;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Yaml\Yaml;
+
+/**
+ * Class CreateProjectCommand
+ *
+ * @package Grasmash\YamlCli\Command
+ */
+class LintCommand extends CommandBase
+{
+    /**
+     * {inheritdoc}
+     */
+    protected function configure()
+    {
+        $this
+            ->setName('lint')
+            ->setDescription('Validates that a given YAML file has valid syntax.')
+            ->addArgument(
+                'filename',
+                InputArgument::REQUIRED
+            );
+    }
+
+    /**
+     * @param \Symfony\Component\Console\Input\InputInterface $input
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
+     *
+     * @return bool
+     */
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        $filename = $input->getArgument('filename');
+        $yaml_parsed = $this->loadYamlFile($filename);
+        if (!$yaml_parsed) {
+            // Exit with a status of 1.
+            return 1;
+        }
+
+        $output->writeln("<info>The file $filename contains valid YAML.");
+    }
+}

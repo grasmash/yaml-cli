@@ -9,11 +9,6 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Yaml\Yaml;
 
 /**
- * @var int
- */
-const MACOSX = 33;
-
-/**
  * Class CreateProjectCommand
  *
  * @package Grasmash\YamlCli\Command

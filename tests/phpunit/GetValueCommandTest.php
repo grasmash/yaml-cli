@@ -6,7 +6,7 @@ use Grasmash\YamlCli\Command\GetValueCommand;
 use Grasmash\YamlCli\Tests\TestBase;
 use Symfony\Component\Console\Tester\CommandTester;
 
-class GetValueTest extends TestBase
+class GetValueCommandTest extends TestBase
 {
 
     /**

@@ -6,7 +6,7 @@ use Grasmash\YamlCli\Command\UpdateValueCommand;
 use Grasmash\YamlCli\Tests\TestBase;
 use Symfony\Component\Console\Tester\CommandTester;
 
-class UpdateValueTest extends TestBase
+class UpdateValueCommandTest extends TestBase
 {
 
     /** @var string */
@@ -19,7 +19,8 @@ class UpdateValueTest extends TestBase
     {
         parent::setUp();
 
-        // Make a temporary copy of good.yml so that we can update a value.
+        // Make a temporary copy of good.yml so that we can update a value
+        // without destroying the original.
         $source = __DIR__ . '/../resources/good.yml';
         $this->temp_file = __DIR__ . '/../resources/temp.yml';
         if (file_exists($source)) {

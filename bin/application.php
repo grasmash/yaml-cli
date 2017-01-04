@@ -23,10 +23,12 @@ if (empty($autoloader)) {
 }
 
 use Grasmash\YamlCli\Command\GetValueCommand;
+use Grasmash\YamlCli\Command\LintCommand;
 use Grasmash\YamlCli\Command\UpdateValueCommand;
 use Symfony\Component\Console\Application;
 
 $application = new Application('yaml-cli', '@package_version@');
 $application->add(new GetValueCommand());
+$application->add(new LintCommand());
 $application->add(new UpdateValueCommand());
 $application->run();

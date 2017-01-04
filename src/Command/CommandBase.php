@@ -65,7 +65,7 @@ abstract class CommandBase extends Command
         try {
             $contents = Yaml::parse(file_get_contents($filename));
         } catch (\Exception $e) {
-            $this->output->writeln("<error>There was an error parsing $filename.</error>");
+            $this->output->writeln("<error>There was an error parsing $filename. The contents are not valid YAML.</error>");
             $this->output->writeln($e->getMessage());
 
             return false;
