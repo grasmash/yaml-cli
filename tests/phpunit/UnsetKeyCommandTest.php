@@ -39,11 +39,11 @@ class UnsetKeyCommandTest extends TestBase
     }
 
     /**
-     * Tests the 'update:key' command.
+     * Tests the 'unset:key' command.
      *
      * @dataProvider getValueProvider
      */
-    public function testUpdateKey($filename, $key, $expected) {
+    public function testUnsetKey($filename, $key, $expected) {
         $this->application->add(new UnsetKeyCommand());
 
         /** @var UnsetKeyCommand $command */
@@ -69,7 +69,7 @@ class UnsetKeyCommandTest extends TestBase
     }
 
     /**
-     * Provides values to testUpdateKey().
+     * Provides values to testUnsetKey().
      *
      * @return array
      *   An array of values to test.
