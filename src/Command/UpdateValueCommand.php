@@ -59,9 +59,6 @@ class UpdateValueCommand extends CommandBase
         }
 
         $data = new Data($yaml_parsed);
-        if (!$this->checkKeyExists($data, $key)) {
-            return 1;
-        }
         $data->set($key, $value);
 
         if ($this->writeYamlFile($filename, $data)) {

@@ -97,6 +97,7 @@ class UpdateValueCommandTest extends TestBase
             [$file, 'deep-array.second.third.fourth', 'goodbye world', "The value for key 'deep-array.second.third.fourth' was set to 'goodbye world' in tests/resources/temp.yml."],
             [$file, 'flat-array.0', 'goodbye world', "The value for key 'flat-array.0' was set to 'goodbye world' in tests/resources/temp.yml."],
             [$file, 'inline-array.0', 'goodbye world', "The value for key 'inline-array.0' was set to 'goodbye world' in tests/resources/temp.yml."],
+            [$file, 'new-key.sub-key', 'hello world', "The value for key 'new-key.sub-key' was set to 'hello world' in tests/resources/temp.yml."],
         ];
     }
 }
