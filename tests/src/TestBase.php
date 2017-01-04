@@ -33,7 +33,8 @@ abstract class TestBase extends \PHPUnit_Framework_TestCase
     /**
      * Removes temporary file.
      */
-    public function tearDown() {
+    public function tearDown()
+    {
         parent::tearDown();
 
         // This will only exist if a test called setupTemporaryConfigFiles().
@@ -71,7 +72,8 @@ abstract class TestBase extends \PHPUnit_Framework_TestCase
     /**
      * Creates a temporary copy of config files so that they can be modified.
      */
-    protected function setupTemporaryConfigFiles() {
+    protected function setupTemporaryConfigFiles()
+    {
         // Make a temporary copy of good.yml so that we can update a value
         // without destroying the original.
         $this->createTemporaryFile(__DIR__ . '/../resources/good.yml', __DIR__ . '/../resources/temp.yml');

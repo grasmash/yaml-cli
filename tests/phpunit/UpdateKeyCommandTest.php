@@ -29,10 +29,50 @@ class UpdateKeyCommandTest extends TestBase
      * @dataProvider getValueProvider
      */
     public function testUpdateKey($file, $key, $new_key, $expected) {
-        $this->application->add(new UpdateKeyCommand());
+        $commandTester = $this->runCommand($file, $key, $new_key);
+        $output = $commandTester->getDisplay();
+        $this->assertContains($expected, $output);
 
-        /** @var UpdateKeyCommand $command */
+        $contents = $this->getCommand()->loadYamlFile($file);
+        $data = new Data($contents);
+        $this->assertTrue($data->has($new_key), "The file $file does not contain the new key $new_key. It should.");
+        $this->assertNotTrue($data->has($key), "The file $file contains the old key $key. It should not.");
+    }
+
+    /**
+     * Tests that passing a missing file outputs expected error.
+     */
+    public function testMissingFile() {
+        $commandTester = $this->runCommand('missing.yml', 'not-real', 'still-not-real');
+        $this->assertContains("The file missing.yml does not exist.", $commandTester->getDisplay());
+    }
+
+    /**
+     * Gets the update:key command.
+     *
+     * @return UpdateKeyCommand
+     */
+    protected function getCommand() {
+        $this->application->add(new UpdateKeyCommand());
         $command = $this->application->find('update:key');
+
+        return $command;
+    }
+
+    /**
+     * Runs the update:key command.
+     *
+     * @param string $file
+     *   The filename.
+     * @param string $key
+     *   The original key.
+     * @param string $new_key
+     *   The new key.
+     *
+     * @return \Symfony\Component\Console\Tester\CommandTester
+     */
+    protected function runCommand($file, $key, $new_key) {
+        $command = $this->getCommand();
         $commandTester = new CommandTester($command);
         $commandTester->execute(array(
             'command' => $command->getName(),
@@ -41,18 +81,7 @@ class UpdateKeyCommandTest extends TestBase
             'new-key' => $new_key,
         ));
 
-        $output = $commandTester->getDisplay();
-        $this->assertContains($expected, $output);
-
-        // If the command was successful, also make sure that the file actually
-        // contains the new key. This conditional is necessary because we
-        // pass in a "missing" file as part of the test data set.
-        if ($commandTester->getStatusCode() == 0) {
-            $contents = $command->loadYamlFile($file);
-            $data = new Data($contents);
-            $this->assertTrue($data->has($new_key), "The file $file does not contain the new key $new_key. It should.");
-            $this->assertNotTrue($data->has($key), "The file $file contains the old key $key. It should not.");
-        }
+        return $commandTester;
     }
 
     /**
@@ -63,12 +92,10 @@ class UpdateKeyCommandTest extends TestBase
      */
     public function getValueProvider()
     {
-
         $file = 'tests/resources/temp.yml';
 
         return [
             [$file, 'deep-array.second.third.fourth', 'deep-array.second.third.fifth', "The key 'deep-array.second.third.fourth' was changed to 'deep-array.second.third.fifth' in tests/resources/temp.yml."],
-            ['missing.yml', 'not-real', 'still-not-real', "The file missing.yml does not exist."],
         ];
     }
 }

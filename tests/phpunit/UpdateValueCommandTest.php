@@ -2,6 +2,7 @@
 
 namespace Grasmash\YamlCli\Tests\Command;
 
+use Dflydev\DotAccessData\Data;
 use Grasmash\YamlCli\Command\UpdateValueCommand;
 use Grasmash\YamlCli\Tests\TestBase;
 use Symfony\Component\Console\Tester\CommandTester;
@@ -28,9 +29,49 @@ class UpdateValueCommandTest extends TestBase
      */
     public function testUpdateValue($file, $key, $value, $expected)
     {
-        $this->application->add(new UpdateValueCommand());
+        $commandTester = $this->runCommand($file, $key, $value);
+        $output = $commandTester->getDisplay();
+        $this->assertContains($expected, $output);
 
+        $contents = $this->getCommand()->loadYamlFile($file);
+        $data = new Data($contents);
+        $this->assertContains($value, $data->get($key));
+    }
+
+    /**
+     * Tests that passing a missing file outputs expected error.
+     */
+    public function testMissingFile() {
+        $commandTester = $this->runCommand('missing.yml', 'not-real', 'still-not-real');
+        $this->assertContains("The file missing.yml does not exist.", $commandTester->getDisplay());
+    }
+
+    /**
+     * Gets the update:value command.
+     *
+     * @return UpdateValueCommand
+     */
+    protected function getCommand() {
+        $this->application->add(new UpdateValueCommand());
         $command = $this->application->find('update:value');
+
+        return $command;
+    }
+
+    /**
+     * Runs the update:value commnd.
+     *
+     * @param string $file
+     *   The filename.
+     * @param string $key
+     *   The key for which to update the value.
+     * @param string $value
+     *   The new value.
+     *
+     * @return \Symfony\Component\Console\Tester\CommandTester
+     */
+    protected function runCommand($file, $key, $value) {
+        $command = $this->getCommand();
         $commandTester = new CommandTester($command);
         $commandTester->execute(array(
             'command'  => $command->getName(),
@@ -39,17 +80,7 @@ class UpdateValueCommandTest extends TestBase
             'value' => $value,
         ));
 
-        $output = $commandTester->getDisplay();
-        $this->assertContains($expected, $output);
-
-        // If the command was successful, also make sure that the file actually
-        // contains the value. This conditional is necessary because we
-        // pass in a "missing" file as part of the test data set.
-        // @todo Use get:value to check the specific array key?
-        if ($commandTester->getStatusCode() == 0) {
-            $contents = file_get_contents($file);
-            $this->assertContains($value, $contents);
-        }
+        return $commandTester;
     }
 
     /**
@@ -60,12 +91,10 @@ class UpdateValueCommandTest extends TestBase
      */
     public function getValueProvider()
     {
-
         $file = 'tests/resources/temp.yml';
 
         return [
             [$file, 'deep-array.second.third.fourth', 'goodbye world', "The value for key 'deep-array.second.third.fourth' was set to 'goodbye world' in tests/resources/temp.yml."],
-            ['missing.yml', 'not-real', 'whatever', "The file missing.yml does not exist."],
         ];
     }
 }

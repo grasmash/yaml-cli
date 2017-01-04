@@ -28,10 +28,47 @@ class UnsetKeyCommandTest extends TestBase
      * @dataProvider getValueProvider
      */
     public function testUnsetKey($filename, $key, $expected) {
-        $this->application->add(new UnsetKeyCommand());
+        $commandTester = $this->runCommand($filename, $key);
+        $output = $commandTester->getDisplay();
+        $this->assertContains($expected, $output);
 
-        /** @var UnsetKeyCommand $command */
+        $contents = $this->getCommand()->loadYamlFile($filename);
+        $data = new Data($contents);
+        $this->assertNotTrue($data->has($key), "The file $filename contains the old key $key. It should not.");
+    }
+
+    /**
+     * Tests that passing a missing file outputs expected error.
+     */
+    public function testMissingFile() {
+        $commandTester = $this->runCommand('missing.yml', 'not-real');
+        $this->assertContains("The file missing.yml does not exist.", $commandTester->getDisplay());
+    }
+
+    /**
+     * Gets the unset:key command.
+     *
+     * @return UnsetKeyCommand
+     */
+    protected function getCommand() {
+        $this->application->add(new UnsetKeyCommand());
         $command = $this->application->find('unset:key');
+
+        return $command;
+    }
+
+    /**
+     * Runs the unset:key command.
+     *
+     * @param string $filename
+     *   The filename.
+     * @param string $key
+     *   The key to unset.
+     *
+     * @return \Symfony\Component\Console\Tester\CommandTester
+     */
+    protected function runCommand($filename, $key) {
+        $command = $this->getCommand();
         $commandTester = new CommandTester($command);
         $commandTester->execute(array(
             'command' => $command->getName(),
@@ -39,17 +76,7 @@ class UnsetKeyCommandTest extends TestBase
             'key' => $key
         ));
 
-        $output = $commandTester->getDisplay();
-        $this->assertContains($expected, $output);
-
-        // If the command was successful, also make sure that key was actually
-        // unset. This conditional is necessary because we
-        // pass in a "missing" file as part of the test data set.
-        if ($commandTester->getStatusCode() == 0) {
-            $contents = $command->loadYamlFile($filename);
-            $data = new Data($contents);
-            $this->assertNotTrue($data->has($key), "The file $filename contains the old key $key. It should not.");
-        }
+        return $commandTester;
     }
 
     /**
@@ -65,7 +92,6 @@ class UnsetKeyCommandTest extends TestBase
 
         return [
             [$filename, 'deep-array.second.third.fourth', "The key 'deep-array.second.third.fourth' was removed from $filename."],
-            ['missing.yml', 'not-real', "The file missing.yml does not exist."],
         ];
     }
 }
