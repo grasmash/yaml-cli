@@ -21,20 +21,24 @@ class UpdateValueCommand extends CommandBase
     protected function configure()
     {
         $this
-        ->setName('update:value')
-        ->setDescription('Update the value for a specific key in a YAML file.')
-        ->addArgument(
-            'filename',
-            InputArgument::REQUIRED
-        )
-         ->addArgument(
-             'key',
-             InputArgument::REQUIRED
-         )
-        ->addArgument(
-            'value',
-            InputArgument::REQUIRED
-        );
+            ->setName('update:value')
+            ->setDescription('Update the value for a specific key in a YAML file.')
+            ->addUsage("path/to/file.yml example.key 'new value for example.key'")
+            ->addArgument(
+                'filename',
+                InputArgument::REQUIRED,
+                "The filename of the YAML file"
+            )
+             ->addArgument(
+                 'key',
+                 InputArgument::REQUIRED,
+                 "The key for the value to set, in dot notation"
+             )
+            ->addArgument(
+                'value',
+                InputArgument::REQUIRED,
+                "The new value"
+            );
     }
 
   /**

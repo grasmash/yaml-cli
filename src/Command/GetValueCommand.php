@@ -21,16 +21,19 @@ class GetValueCommand extends CommandBase
     protected function configure()
     {
         $this
-        ->setName('get:value')
-        ->setDescription('Get a value for a specific key in a YAML file.')
-        ->addArgument(
-            'filename',
-            InputArgument::REQUIRED
-        )
-         ->addArgument(
-             'key',
-             InputArgument::REQUIRED
-         );
+            ->setName('get:value')
+            ->setDescription('Get a value for a specific key in a YAML file.')
+            ->addUsage("path/to/file.yml example.key")
+            ->addArgument(
+                'filename',
+                InputArgument::REQUIRED,
+                "The filename of the YAML file"
+            )
+             ->addArgument(
+                 'key',
+                 InputArgument::REQUIRED,
+                 "The key for the value to get, in dot notation."
+             );
     }
 
   /**

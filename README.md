@@ -9,6 +9,9 @@ Yet another  command line tool for reading and manipulating yaml files, built on
 |--------------| ----------------------------------------------------|
 | get:value    | Get a value for a specific key in a YAML file.      |
 | update:value | Update the value for a specific key in a YAML file. |
+| update:key   | Change a specific key in a YAML file.               |
+| unset:key    | Unset a specific key in a YAML file.                |
+| lint         | Validates that a given YAML file has valid syntax.  |
 
 ### Installation
 
@@ -18,6 +21,9 @@ Yet another  command line tool for reading and manipulating yaml files, built on
 
     ./vendor/bin/yaml-cli get:value somefile.yml some-key
     ./vendor/bin/yaml-cli update:value somefile.yml some-key some-value
+    ./vendor/bin/yaml-cli update:key somefile.yml old-key new-key
+    ./vendor/bin/yaml-cli unset:value somefile.yml some-key
+    ./vendor/bin/yaml-cli lint somefile.yml
 
 ### Similar tools:
 

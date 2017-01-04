@@ -23,17 +23,21 @@ class UpdateKeyCommand extends CommandBase
         $this
             ->setName('update:key')
             ->setDescription('Update a specific key in a YAML file.')
+            ->addUsage("path/to/file.yml example.key example.new-key")
             ->addArgument(
                 'filename',
-                InputArgument::REQUIRED
+                InputArgument::REQUIRED,
+                "The filename of the YAML file"
             )
             ->addArgument(
                 'key',
-                InputArgument::REQUIRED
+                InputArgument::REQUIRED,
+                "The original key, in dot notation"
             )
             ->addArgument(
                 'new-key',
-                InputArgument::REQUIRED
+                InputArgument::REQUIRED,
+                "The new key, in dot notation"
             );
     }
 

@@ -23,13 +23,16 @@ class UnsetKeyCommand extends CommandBase
         $this
             ->setName('unset:key')
             ->setDescription('Unset a specific key in a YAML file.')
+            ->addUsage("path/to/file.yml")
             ->addArgument(
                 'filename',
-                InputArgument::REQUIRED
+                InputArgument::REQUIRED,
+                "The filename of the YAML file"
             )
             ->addArgument(
                 'key',
-                InputArgument::REQUIRED
+                InputArgument::REQUIRED,
+                "The key to unset, in dot notation"
             );
     }
 

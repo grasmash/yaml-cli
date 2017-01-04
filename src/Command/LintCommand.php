@@ -23,9 +23,11 @@ class LintCommand extends CommandBase
         $this
             ->setName('lint')
             ->setDescription('Validates that a given YAML file has valid syntax.')
+            ->addUsage("path/to/file.yml")
             ->addArgument(
                 'filename',
-                InputArgument::REQUIRED
+                InputArgument::REQUIRED,
+                "The filename of the YAML file"
             );
     }
 
