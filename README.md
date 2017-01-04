@@ -30,3 +30,7 @@ Yet another  command line tool for reading and manipulating yaml files, built on
 - Javascript - https://github.com/pandastrike/yaml-cli
 - Ruby - https://github.com/rubyworks/yaml_command
 - Python - https://github.com/0k/shyaml
+
+### Recognition
+
+This project was inspired by the yaml commands in [Drupal Console](https://drupalconsole.com/).
