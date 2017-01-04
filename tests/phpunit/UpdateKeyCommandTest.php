@@ -2,11 +2,13 @@
 
 namespace Grasmash\YamlCli\Tests\Command;
 
+use Dflydev\DotAccessData\Data;
+use Grasmash\YamlCli\Command\UpdateKeyCommand;
 use Grasmash\YamlCli\Command\UpdateValueCommand;
 use Grasmash\YamlCli\Tests\TestBase;
 use Symfony\Component\Console\Tester\CommandTester;
 
-class UpdateValueCommandTest extends TestBase
+class UpdateKeyCommandTest extends TestBase
 {
 
     /** @var string */
@@ -38,37 +40,39 @@ class UpdateValueCommandTest extends TestBase
     }
 
     /**
-     * Tests the 'update:value' command.
+     * Tests the 'update:key' command.
      *
      * @dataProvider getValueProvider
      */
-    public function testUpdateValue($file, $key, $value, $expected)
-    {
-        $this->application->add(new UpdateValueCommand());
+    public function testUpdateKey($file, $key, $new_key, $expected) {
+        $this->application->add(new UpdateKeyCommand());
 
-        $command = $this->application->find('update:value');
+        /** @var UpdateKeyCommand $command */
+        $command = $this->application->find('update:key');
         $commandTester = new CommandTester($command);
         $commandTester->execute(array(
-            'command'  => $command->getName(),
+            'command' => $command->getName(),
             'filename' => $file,
             'key' => $key,
-            'value' => $value,
+            'new-key' => $new_key,
         ));
 
         $output = $commandTester->getDisplay();
         $this->assertContains($expected, $output);
 
         // If the command was successful, also make sure that the file actually
-        // contains the value.
-        // @todo Use get:value to check the specific array key?
+        // contains the new key. This conditional is necessary because we
+        // pass in a "missing" file as part of the test data set.
         if ($commandTester->getStatusCode() == 0) {
-            $contents = file_get_contents($file);
-            $this->assertContains($value, $contents);
+            $contents = $command->loadYamlFile($file);
+            $data = new Data($contents);
+            $this->assertTrue($data->has($new_key), "The file $file does not contain the new key $new_key. It should.");
+            $this->assertNotTrue($data->has($key), "The file $file contains the old key $key. It should not.");
         }
     }
 
     /**
-     * Provides values to testUpdateValue().
+     * Provides values to testUpdateKey().
      *
      * @return array
      *   An array of values to test.
@@ -79,8 +83,8 @@ class UpdateValueCommandTest extends TestBase
         $file = 'tests/resources/temp.yml';
 
         return [
-            [$file, 'deep-array.second.third.fourth', 'goodbye world', "The value for key 'deep-array.second.third.fourth' was set to 'goodbye world' in tests/resources/temp.yml."],
-            ['missing.yml', 'not-real', 'whatever', "The file missing.yml does not exist."],
+            [$file, 'deep-array.second.third.fourth', 'deep-array.second.third.fifth', "The key 'deep-array.second.third.fourth' was changed to 'deep-array.second.third.fifth' in tests/resources/temp.yml."],
+            ['missing.yml', 'not-real', 'still-not-real', "The file missing.yml does not exist."],
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Grasmash\YamlCli\Command;
 
+use Dflydev\DotAccessData\Data;
 use Grasmash\YamlCli\Loader\JsonFileLoader;
 use Symfony\Component\Console\Helper\FormatterHelper;
 use Symfony\Component\Filesystem\Filesystem;
@@ -54,7 +55,7 @@ abstract class CommandBase extends Command
      * @return array|bool
      *   The parsed content of the yaml file. FALSE if an error occured.
      */
-    protected function loadYamlFile($filename)
+    public function loadYamlFile($filename)
     {
         if (!file_exists($filename)) {
             $this->output->writeln("<error>The file $filename does not exist.</error>");
@@ -78,6 +79,41 @@ abstract class CommandBase extends Command
         }
 
         return $contents;
+    }
+
+    /**
+     * Writes YAML data to a file.
+     *
+     * @param string $filename
+     *   The filename.
+     * @param Data $data
+     *   The YAML file contents.
+     *
+     * @return bool
+     *   TRUE if file was written successfully. Otherwise, FALSE.
+     */
+    public function writeYamlFile($filename, $data)
+    {
+        try {
+            $yaml = Yaml::dump($data->export());
+        } catch (\Exception $e) {
+            $this->output->writeln("<error>There was an error dumping the YAML contents for $filename.</error>");
+            $this->output->writeln($e->getMessage());
+
+            return false;
+        }
+
+        try {
+            // @todo Use Symfony file system instead so that exceptions can be caught.
+            file_put_contents($filename, $yaml);
+        } catch (\Exception $e) {
+            $this->output->writeln("<error>There was an writing to $filename.</error>");
+            $this->output->writeln($e->getMessage());
+
+            return false;
+        }
+
+        return true;
     }
 
     /**

@@ -60,24 +60,8 @@ class UpdateValueCommand extends CommandBase
         }
         $data->set($key, $value);
 
-        try {
-            $yaml = Yaml::dump($data->export());
-        } catch (\Exception $e) {
-            $this->output->writeln("<error>There was an error dumping the yaml contents for $filename.</error>");
-            $this->output->writeln($e->getMessage());
-
-            return false;
+        if ($this->writeYamlFile($filename, $data)) {
+            $this->output->writeln("<info>The value for key '$key' was set to '$value' in $filename.</info>");
         }
-
-        try {
-            file_put_contents($filename, $yaml);
-        } catch (\Exception $e) {
-            $this->output->writeln("<error>There was an writing to $filename.</error>");
-            $this->output->writeln($e->getMessage());
-
-            return false;
-        }
-
-        $this->output->writeln("<info>The key '$key' was changed to '$value' in $filename.</info>");
     }
 }

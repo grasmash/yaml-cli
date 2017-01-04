@@ -31,7 +31,7 @@ class LintCommandTest extends TestBase
     }
 
     /**
-     * Provides values to testGetValue().
+     * Provides values to testLint().
      *
      * @return array
      *   An array of values to test.
