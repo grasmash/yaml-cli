@@ -35,7 +35,7 @@ class UpdateValueCommandTest extends TestBase
 
         $contents = $this->getCommand()->loadYamlFile($file);
         $data = new Data($contents);
-        $this->assertContains($value, $data->get($key));
+        $this->assertEquals($value, $data->get($key));
     }
 
     /**
@@ -95,6 +95,8 @@ class UpdateValueCommandTest extends TestBase
 
         return [
             [$file, 'deep-array.second.third.fourth', 'goodbye world', "The value for key 'deep-array.second.third.fourth' was set to 'goodbye world' in tests/resources/temp.yml."],
+            [$file, 'flat-array.0', 'goodbye world', "The value for key 'flat-array.0' was set to 'goodbye world' in tests/resources/temp.yml."],
+            [$file, 'inline-array.0', 'goodbye world', "The value for key 'inline-array.0' was set to 'goodbye world' in tests/resources/temp.yml."],
         ];
     }
 }

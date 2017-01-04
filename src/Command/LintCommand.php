@@ -46,6 +46,6 @@ class LintCommand extends CommandBase
             return 1;
         }
 
-        $output->writeln("<info>The file $filename contains valid YAML.");
+        $output->writeln("<info>The file $filename contains valid YAML.</info>");
     }
 }

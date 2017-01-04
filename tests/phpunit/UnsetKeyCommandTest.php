@@ -92,6 +92,11 @@ class UnsetKeyCommandTest extends TestBase
 
         return [
             [$filename, 'deep-array.second.third.fourth', "The key 'deep-array.second.third.fourth' was removed from $filename."],
+            [$filename, 'flat-array.0', "The key 'flat-array.0' was removed from $filename."],
+            [$filename, 'inline-array.0', "The key 'inline-array.0' was removed from $filename."],
+            // @todo Uncomment after this is merged:
+            // https://github.com/dflydev/dflydev-dot-access-data/pull/7
+            // [$filename, 'null-value', "The key 'null-value' was removed from $filename."],
         ];
     }
 }

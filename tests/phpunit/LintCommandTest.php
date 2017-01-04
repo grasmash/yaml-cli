@@ -40,6 +40,7 @@ class LintCommandTest extends TestBase
     {
 
         return [
+            ['tests/resources/good.yml', "The file tests/resources/good.yml contains valid YAML."],
             ['tests/resources/bad.yml', "There was an error parsing tests/resources/bad.yml. The contents are not valid YAML."],
             ['missing.yml', "The file missing.yml does not exist."],
         ];
