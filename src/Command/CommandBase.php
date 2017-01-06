@@ -95,7 +95,8 @@ abstract class CommandBase extends Command
     public function writeYamlFile($filename, $data)
     {
         try {
-            $yaml = Yaml::dump($data->export());
+            // @todo Allow the inline and indent variables to be set via command line option.
+            $yaml = Yaml::dump($data->export(), 3, 2);
         } catch (\Exception $e) {
             $this->output->writeln("<error>There was an error dumping the YAML contents for $filename.</error>");
             $this->output->writeln($e->getMessage());
