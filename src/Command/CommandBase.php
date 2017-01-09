@@ -140,4 +140,14 @@ abstract class CommandBase extends Command
 
         return true;
     }
+
+    /**
+     * Writes a line to output with <info> wrapper.
+     *
+     * @param string $output
+     *   The mesasge to output.
+     */
+    protected function writeInfo($output) {
+        $this->output->writeln("<info>$output</info>");
+    }
 }

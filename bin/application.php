@@ -22,6 +22,7 @@ if (empty($autoloader)) {
     exit(1);
 }
 
+use Grasmash\YamlCli\Command\DiffCommand;
 use Grasmash\YamlCli\Command\GetValueCommand;
 use Grasmash\YamlCli\Command\LintCommand;
 use Grasmash\YamlCli\Command\UnsetKeyCommand;
@@ -30,6 +31,7 @@ use Grasmash\YamlCli\Command\UpdateValueCommand;
 use Symfony\Component\Console\Application;
 
 $application = new Application('yaml-cli', '@package_version@');
+$application->add(new DiffCommand());
 $application->add(new GetValueCommand());
 $application->add(new LintCommand());
 $application->add(new UnsetKeyCommand());
