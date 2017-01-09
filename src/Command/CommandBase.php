@@ -147,7 +147,8 @@ abstract class CommandBase extends Command
      * @param string $output
      *   The mesasge to output.
      */
-    protected function writeInfo($output) {
+    protected function writeInfo($output)
+    {
         $this->output->writeln("<info>$output</info>");
     }
 }

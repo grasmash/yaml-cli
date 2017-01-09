@@ -229,7 +229,8 @@ class DiffCommand extends CommandBase
         $headers = array_map(
             function ($value) {
                 return sprintf('<info>%s</info>', $value);
-            }, $headers
+            },
+            $headers
         );
         if (!is_array(current($rows))) {
             $rows = array_map(
