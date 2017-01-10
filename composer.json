@@ -19,7 +19,11 @@
     "prefer-stable": true,
     "autoload": {
         "psr-4": {
-            "Grasmash\\YamlCli\\":        "src/",
+            "Grasmash\\YamlCli\\":        "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
             "Grasmash\\YamlCli\\Tests\\": "tests/src/"
         }
     },
