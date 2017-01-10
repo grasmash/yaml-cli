@@ -5,6 +5,7 @@ namespace Grasmash\YamlCli\Tests\Command;
 use Grasmash\YamlCli\Command\GetValueCommand;
 use Grasmash\YamlCli\Command\LintCommand;
 use Grasmash\YamlCli\Tests\TestBase;
+use Symfony\Component\Console\Output\Output;
 use Symfony\Component\Console\Tester\CommandTester;
 
 class LintCommandTest extends TestBase
@@ -24,7 +25,7 @@ class LintCommandTest extends TestBase
         $commandTester->execute(array(
             'command'  => $command->getName(),
             'filename' => $file
-        ));
+        ), ['verbosity' => Output::VERBOSITY_VERBOSE]);
 
         $output = $commandTester->getDisplay();
         $this->assertContains($expected, $output);

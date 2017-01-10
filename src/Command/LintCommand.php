@@ -47,7 +47,7 @@ class LintCommand extends CommandBase
         }
 
         if (OutputInterface::VERBOSITY_VERBOSE === $output->getVerbosity()) {
-            $output->writeln("<info>The file $filename contains valid YAML.</info>", self::VERBOSITY_NORMA);
+            $output->writeln("<info>The file $filename contains valid YAML.</info>");
         }
     }
 }
