@@ -15,8 +15,6 @@ cache:
 
 before_install:
   - composer selfupdate
-  # Disable xdebug.
-  - phpenv config-rm xdebug.ini
 
 install:
   # Load composer dependencies.
@@ -29,3 +27,6 @@ before_script:
 
 script:
   - ./scripts/run-tests.sh
+
+after_success:
+  - ./vendor/bin/coveralls -vvv

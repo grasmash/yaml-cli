@@ -7,7 +7,8 @@
         "symfony/yaml":                   "^2.8.11",
         "symfony/console":                "^2.8.11",
         "symfony/filesystem":             "^2.8.11",
-        "dflydev/dot-access-data":        "dev-master"
+        "dflydev/dot-access-data":        "dev-master",
+        "satooshi/php-coveralls": "^1.0"
     },
     "license": "MIT",
     "authors": [
