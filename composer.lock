@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "3fdb1e0a36df77bf9a4ef7e81d2dba8b",
+    "content-hash": "692eb8ff0b6d5e757107ffd22d2e4152",
     "packages": [
         {
             "name": "dflydev/dot-access-data",
-            "version": "dev-master",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dflydev/dflydev-dot-access-data.git",
-                "reference": "9c253bb13bdfce27745548cb939de281b8df60d1"
+                "reference": "3fbd874921ab2c041e899d044585a2ab9795df8a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dflydev/dflydev-dot-access-data/zipball/9c253bb13bdfce27745548cb939de281b8df60d1",
-                "reference": "9c253bb13bdfce27745548cb939de281b8df60d1",
+                "url": "https://api.github.com/repos/dflydev/dflydev-dot-access-data/zipball/3fbd874921ab2c041e899d044585a2ab9795df8a",
+                "reference": "3fbd874921ab2c041e899d044585a2ab9795df8a",
                 "shasum": ""
             },
             "require": {
@@ -63,7 +63,7 @@
                 "dot",
                 "notation"
             ],
-            "time": "2016-04-25 07:35:28"
+            "time": "2017-01-20T21:14:22+00:00"
         },
         {
             "name": "guzzle/guzzle",
@@ -2042,9 +2042,7 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": {
-        "dflydev/dot-access-data": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
