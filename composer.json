@@ -7,8 +7,7 @@
         "symfony/yaml":                   "^2.8.11",
         "symfony/console":                "^2.8.11",
         "symfony/filesystem":             "^2.8.11",
-        "dflydev/dot-access-data":        "^1.1.0",
-        "satooshi/php-coveralls": "^1.0"
+        "dflydev/dot-access-data":        "^1.1.0"
     },
     "license": "MIT",
     "authors": [
@@ -33,6 +32,7 @@
     ],
     "require-dev": {
         "squizlabs/php_codesniffer":      "^2.7",
-        "phpunit/phpunit":                "^5.5.4"
+        "phpunit/phpunit":                "^5.5.4",
+        "satooshi/php-coveralls":         "^1.0"
     }
 }
