@@ -53,7 +53,7 @@ class UpdateValueCommand extends CommandBase
         $key = $input->getArgument('key');
         $value = $input->getArgument('value');
         $yaml_parsed = $this->loadYamlFile($filename);
-        if ($yaml_parsed !== FALSE) {
+        if ($yaml_parsed === false) {
             // Exit with a status of 1.
             return 1;
         }
