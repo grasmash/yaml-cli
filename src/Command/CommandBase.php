@@ -72,12 +72,6 @@ abstract class CommandBase extends Command
             return false;
         }
 
-        if (empty($contents)) {
-            $this->output->writeln("<error>The file $filename is empty.");
-
-            return false;
-        }
-
         return $contents;
     }
 
