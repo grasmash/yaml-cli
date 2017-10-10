@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/grasmash/yaml-cli.svg?branch=master)](https://travis-ci.org/grasmash/yaml-cli) [![Packagist](https://img.shields.io/packagist/v/grasmash/yaml-cli.svg)](https://packagist.org/packages/grasmash/yaml-cli) [![Coverage Status](https://coveralls.io/repos/github/grasmash/yaml-cli/badge.svg?branch=master)](https://coveralls.io/github/grasmash/yaml-cli?branch=master)
+[![Build Status](https://travis-ci.org/grasmash/yaml-cli.svg?branch=master)](https://travis-ci.org/grasmash/yaml-cli) [![Packagist](https://img.shields.io/packagist/v/grasmash/yaml-cli.svg)](https://packagist.org/packages/grasmash/yaml-cli) [![Total Downloads](https://poser.pugx.org/grasmash/yaml-cli/downloads)](https://packagist.org/packages/grasmash/yaml-cli) [![Coverage Status](https://coveralls.io/repos/github/grasmash/yaml-cli/badge.svg?branch=master)](https://coveralls.io/github/grasmash/yaml-cli?branch=master)
 
 Yet another  command line tool for reading and manipulating yaml files, built on the [Symfony console component](http://symfony.com/doc/current/components/console.html).
 
