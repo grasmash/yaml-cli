@@ -59,6 +59,14 @@ class UpdateValueCommand extends CommandBase
         }
 
         $data = new Data($yaml_parsed);
+        
+        if (strtolower($value) === 'false') {
+          $value = FALSE;
+        }
+        elseif (strtolower($value) === 'true') {
+          $value = TRUE;   
+        }
+        
         $data->set($key, $value);
 
         if ($this->writeYamlFile($filename, $data)) {
