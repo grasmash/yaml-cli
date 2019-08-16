@@ -61,10 +61,10 @@ class UpdateValueCommand extends CommandBase
         $data = new Data($yaml_parsed);
         
         if (strtolower($value) === 'false') {
-          $value = FALSE;
+            $value = false;
         }
         elseif (strtolower($value) === 'true') {
-          $value = TRUE;   
+            $value = true;   
         }
         
         $data->set($key, $value);
