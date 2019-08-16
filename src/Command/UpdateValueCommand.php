@@ -70,7 +70,8 @@ class UpdateValueCommand extends CommandBase
         $data->set($key, $value);
 
         if ($this->writeYamlFile($filename, $data)) {
-            $this->output->writeln("<info>The value for key '$key' was set to '$value' in $filename.</info>");
+            $display_value = (string) $value;
+            $this->output->writeln("<info>The value for key '$key' was set to '$display_value' in $filename.</info>");
         }
     }
 }
