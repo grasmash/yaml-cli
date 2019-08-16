@@ -98,10 +98,10 @@ class UpdateValueCommandTest extends TestBase
             [$file, 'flat-array.0', 'goodbye world', 'goodbye world', "The value for key 'flat-array.0' was set to 'goodbye world' in tests/resources/temp.yml."],
             [$file, 'inline-array.0', 'goodbye world', 'goodbye world', "The value for key 'inline-array.0' was set to 'goodbye world' in tests/resources/temp.yml."],
             [$file, 'new-key.sub-key', 'hello world', 'hello world', "The value for key 'new-key.sub-key' was set to 'hello world' in tests/resources/temp.yml."],
-            [$file, 'boolean.0', 'false', "The value for key 'boolean.0' was set to 'false' in tests/resources/temp.yml."],
-            [$file, 'boolean.1', false, "The value for key 'boolean.1' was set to 'false' in tests/resources/temp.yml."],
-            [$file, 'boolean.2', 'true', "The value for key 'boolean.2' was set to 'true' in tests/resources/temp.yml."],
-            [$file, 'boolean.3', true, "The value for key 'boolean.3' was set to 'true' in tests/resources/temp.yml."],
+            [$file, 'boolean.0', 'false', false, "The value for key 'boolean.0' was set to 'false' in tests/resources/temp.yml."],
+            [$file, 'boolean.1', false, false, "The value for key 'boolean.1' was set to 'false' in tests/resources/temp.yml."],
+            [$file, 'boolean.2', 'true', true, "The value for key 'boolean.2' was set to 'true' in tests/resources/temp.yml."],
+            [$file, 'boolean.3', true, true, "The value for key 'boolean.3' was set to 'true' in tests/resources/temp.yml."],
         ];
     }
 }
