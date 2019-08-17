@@ -27,15 +27,15 @@ class UpdateValueCommandTest extends TestBase
      *
      * @dataProvider getValueProvider
      */
-    public function testUpdateValue($file, $key, $value, $expected)
+    public function testUpdateValue($file, $key, $value, $expected_value, $expected_output)
     {
         $commandTester = $this->runCommand($file, $key, $value);
         $output = $commandTester->getDisplay();
-        $this->assertContains($expected, $output);
+        $this->assertContains($expected_output, $output);
 
         $contents = $this->getCommand()->loadYamlFile($file);
         $data = new Data($contents);
-        $this->assertEquals($value, $data->get($key));
+        $this->assertEquals($expected_value, $data->get($key));
     }
 
     /**
@@ -94,10 +94,12 @@ class UpdateValueCommandTest extends TestBase
         $file = 'tests/resources/temp.yml';
 
         return [
-            [$file, 'deep-array.second.third.fourth', 'goodbye world', "The value for key 'deep-array.second.third.fourth' was set to 'goodbye world' in tests/resources/temp.yml."],
-            [$file, 'flat-array.0', 'goodbye world', "The value for key 'flat-array.0' was set to 'goodbye world' in tests/resources/temp.yml."],
-            [$file, 'inline-array.0', 'goodbye world', "The value for key 'inline-array.0' was set to 'goodbye world' in tests/resources/temp.yml."],
-            [$file, 'new-key.sub-key', 'hello world', "The value for key 'new-key.sub-key' was set to 'hello world' in tests/resources/temp.yml."],
+            [$file, 'deep-array.second.third.fourth', 'goodbye world', 'goodbye world', "The value for key 'deep-array.second.third.fourth' was set to 'goodbye world' in tests/resources/temp.yml."],
+            [$file, 'flat-array.0', 'goodbye world', 'goodbye world', "The value for key 'flat-array.0' was set to 'goodbye world' in tests/resources/temp.yml."],
+            [$file, 'inline-array.0', 'goodbye world', 'goodbye world', "The value for key 'inline-array.0' was set to 'goodbye world' in tests/resources/temp.yml."],
+            [$file, 'new-key.sub-key', 'hello world', 'hello world', "The value for key 'new-key.sub-key' was set to 'hello world' in tests/resources/temp.yml."],
+            [$file, 'boolean.0', 'false', false, "The value for key 'boolean.0' was set to 'false' in tests/resources/temp.yml."],
+            [$file, 'boolean.1', 'true', true, "The value for key 'boolean.1' was set to 'true' in tests/resources/temp.yml."],
         ];
     }
 }
