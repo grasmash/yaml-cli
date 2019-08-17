@@ -60,18 +60,16 @@ class UpdateValueCommand extends CommandBase
 
         $data = new Data($yaml_parsed);
         
+        $typed_value = $value;
         if (strtolower($value) === 'false') {
-            $value = false;
+            $typed_value = false;
         } elseif (strtolower($value) === 'true') {
-            $value = true;
+            $typed_value = true;
         }
         
-        $data->set($key, $value);
+        $data->set($key, $typed_value);
 
         if ($this->writeYamlFile($filename, $data)) {
-            if (is_bool($value)) {
-                $value = $value ? 'true' : 'false';
-            }
             $this->output->writeln("<info>The value for key '$key' was set to '$value' in $filename.</info>");
         }
     }
