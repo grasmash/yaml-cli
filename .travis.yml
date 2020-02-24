@@ -1,11 +1,12 @@
 language: php
 
-php:
-  - 5.6
-  - 7
-
 matrix:
   fast_finish: true
+  include:
+    - php: 7.2
+    - php: 7.1
+    - php: 7.0.11
+    - php: 5.6
 
 cache:
   apt: true
@@ -26,7 +27,7 @@ before_script:
   - git diff --exit-code
 
 script:
-  - ./scripts/run-tests.sh
+  - composer test
 
 after_success:
   - ./vendor/bin/coveralls -vvv
