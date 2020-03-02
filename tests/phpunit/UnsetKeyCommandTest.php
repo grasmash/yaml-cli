@@ -27,7 +27,8 @@ class UnsetKeyCommandTest extends TestBase
      *
      * @dataProvider getValueProvider
      */
-    public function testUnsetKey($filename, $key, $expected_output, $expected_exit_code) {
+    public function testUnsetKey($filename, $key, $expected_output, $expected_exit_code)
+    {
         $commandTester = $this->runCommand($filename, $key);
         $output = $commandTester->getDisplay();
         $this->assertContains($expected_output, $output);
@@ -41,7 +42,8 @@ class UnsetKeyCommandTest extends TestBase
     /**
      * Tests that passing a missing file outputs expected error.
      */
-    public function testMissingFile() {
+    public function testMissingFile()
+    {
         $commandTester = $this->runCommand('missing.yml', 'not-real');
         $this->assertContains("The file missing.yml does not exist.", $commandTester->getDisplay());
     }
@@ -51,7 +53,8 @@ class UnsetKeyCommandTest extends TestBase
      *
      * @return UnsetKeyCommand
      */
-    protected function getCommand() {
+    protected function getCommand()
+    {
         $this->application->add(new UnsetKeyCommand());
         $command = $this->application->find('unset:key');
 
@@ -68,7 +71,8 @@ class UnsetKeyCommandTest extends TestBase
      *
      * @return \Symfony\Component\Console\Tester\CommandTester
      */
-    protected function runCommand($filename, $key) {
+    protected function runCommand($filename, $key)
+    {
         $command = $this->getCommand();
         $commandTester = new CommandTester($command);
         $commandTester->execute(array(

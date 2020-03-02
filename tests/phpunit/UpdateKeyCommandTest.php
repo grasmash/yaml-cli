@@ -28,7 +28,8 @@ class UpdateKeyCommandTest extends TestBase
      *
      * @dataProvider getValueProvider
      */
-    public function testUpdateKey($file, $key, $new_key, $expected_output, $expected_exit_code) {
+    public function testUpdateKey($file, $key, $new_key, $expected_output, $expected_exit_code)
+    {
         $contents = $this->getCommand()->loadYamlFile($file);
         $data = new Data($contents);
         $value = $data->get($key);
@@ -48,7 +49,8 @@ class UpdateKeyCommandTest extends TestBase
     /**
      * Tests that passing a missing file outputs expected error.
      */
-    public function testMissingFile() {
+    public function testMissingFile()
+    {
         $commandTester = $this->runCommand('missing.yml', 'not-real', 'still-not-real');
         $this->assertContains("The file missing.yml does not exist.", $commandTester->getDisplay());
     }
@@ -58,7 +60,8 @@ class UpdateKeyCommandTest extends TestBase
      *
      * @return UpdateKeyCommand
      */
-    protected function getCommand() {
+    protected function getCommand()
+    {
         $this->application->add(new UpdateKeyCommand());
         $command = $this->application->find('update:key');
 
@@ -77,7 +80,8 @@ class UpdateKeyCommandTest extends TestBase
      *
      * @return \Symfony\Component\Console\Tester\CommandTester
      */
-    protected function runCommand($file, $key, $new_key) {
+    protected function runCommand($file, $key, $new_key)
+    {
         $command = $this->getCommand();
         $commandTester = new CommandTester($command);
         $commandTester->execute(array(

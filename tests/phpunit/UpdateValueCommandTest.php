@@ -42,7 +42,8 @@ class UpdateValueCommandTest extends TestBase
     /**
      * Tests that passing a missing file outputs expected error.
      */
-    public function testMissingFile() {
+    public function testMissingFile()
+    {
         $commandTester = $this->runCommand('missing.yml', 'not-real', 'still-not-real');
         $this->assertContains("The file missing.yml does not exist.", $commandTester->getDisplay());
     }
@@ -52,7 +53,8 @@ class UpdateValueCommandTest extends TestBase
      *
      * @return UpdateValueCommand
      */
-    protected function getCommand() {
+    protected function getCommand()
+    {
         $this->application->add(new UpdateValueCommand());
         $command = $this->application->find('update:value');
 
@@ -71,7 +73,8 @@ class UpdateValueCommandTest extends TestBase
      *
      * @return \Symfony\Component\Console\Tester\CommandTester
      */
-    protected function runCommand($file, $key, $value) {
+    protected function runCommand($file, $key, $value)
+    {
         $command = $this->getCommand();
         $commandTester = new CommandTester($command);
         $commandTester->execute(array(
