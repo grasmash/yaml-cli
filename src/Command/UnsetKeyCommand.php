@@ -54,6 +54,7 @@ class UnsetKeyCommand extends CommandBase
 
         $data = new Data($yaml_parsed);
         if (!$this->checkKeyExists($data, $key)) {
+            $this->output->writeln("<error>The key '$key' does not exist in $filename.</error>");
             return 1;
         }
 

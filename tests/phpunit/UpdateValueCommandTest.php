@@ -98,13 +98,12 @@ class UpdateValueCommandTest extends TestBase
         $file = 'tests/resources/temp.yml';
 
         return [
-            [$file, 'deep-array.second.third.fourth', 'goodbye world', 'goodbye world', "The value for key 'deep-array.second.third.fourth' was set to 'goodbye world' in tests/resources/temp.yml.", 0],
-            [$file, 'flat-array.0', 'goodbye world', 'goodbye world', "The value for key 'flat-array.0' was set to 'goodbye world' in tests/resources/temp.yml.", 0],
-            [$file, 'inline-array.0', 'goodbye world', 'goodbye world', "The value for key 'inline-array.0' was set to 'goodbye world' in tests/resources/temp.yml.", 0],
-            [$file, 'new-key.sub-key', 'hello world', 'hello world', "The value for key 'new-key.sub-key' was set to 'hello world' in tests/resources/temp.yml.", 0],
-            [$file, 'boolean.0', 'false', false, "The value for key 'boolean.0' was set to 'false' in tests/resources/temp.yml.", 0],
-            [$file, 'boolean.1', 'true', true, "The value for key 'boolean.1' was set to 'true' in tests/resources/temp.yml.", 0],
-            // @todo Test failure!
+            [$file, 'deep-array.second.third.fourth', 'goodbye world', 'goodbye world', "The value for key 'deep-array.second.third.fourth' was set to 'goodbye world' in $file.", 0],
+            [$file, 'flat-array.0', 'goodbye world', 'goodbye world', "The value for key 'flat-array.0' was set to 'goodbye world' in $file.", 0],
+            [$file, 'inline-array.0', 'goodbye world', 'goodbye world', "The value for key 'inline-array.0' was set to 'goodbye world' in $file.", 0],
+            [$file, 'new-key.sub-key', 'hello world', 'hello world', "The value for key 'new-key.sub-key' was set to 'hello world' in $file.", 0],
+            [$file, 'boolean.0', 'false', false, "The value for key 'boolean.0' was set to 'false' in $file.", 0],
+            [$file, 'boolean.1', 'true', true, "The value for key 'boolean.1' was set to 'true' in $file.", 0],
         ];
     }
 }

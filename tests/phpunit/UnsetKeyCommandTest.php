@@ -98,10 +98,8 @@ class UnsetKeyCommandTest extends TestBase
             [$filename, 'deep-array.second.third.fourth', "The key 'deep-array.second.third.fourth' was removed from $filename.", 0],
             [$filename, 'flat-array.0', "The key 'flat-array.0' was removed from $filename.", 0],
             [$filename, 'inline-array.0', "The key 'inline-array.0' was removed from $filename.", 0],
-            // @todo Test a failure!
-            // @todo Uncomment after this is merged:
-            // https://github.com/dflydev/dflydev-dot-access-data/pull/7
-            // [$filename, 'null-value', "The key 'null-value' was removed from $filename."],
+            [$filename, 'null-value', "The key 'null-value' was removed from $filename.", 0],
+            [$filename, 'fake-value', "The key 'fake-value' does not exist in $filename.", 1],
         ];
     }
 }
