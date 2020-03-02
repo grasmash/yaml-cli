@@ -69,6 +69,9 @@ class UpdateKeyCommand extends CommandBase
 
         if ($this->writeYamlFile($filename, $data)) {
             $this->output->writeln("<info>The key '$key' was changed to '$new_key' in $filename.</info>");
+            return 0;
         }
+
+        return 1;
     }
 }
