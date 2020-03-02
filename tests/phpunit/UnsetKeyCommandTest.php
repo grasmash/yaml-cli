@@ -27,14 +27,15 @@ class UnsetKeyCommandTest extends TestBase
      *
      * @dataProvider getValueProvider
      */
-    public function testUnsetKey($filename, $key, $expected) {
+    public function testUnsetKey($filename, $key, $expected_output, $expected_exit_code) {
         $commandTester = $this->runCommand($filename, $key);
         $output = $commandTester->getDisplay();
-        $this->assertContains($expected, $output);
+        $this->assertContains($expected_output, $output);
 
         $contents = $this->getCommand()->loadYamlFile($filename);
         $data = new Data($contents);
         $this->assertNotTrue($data->has($key), "The file $filename contains the old key $key. It should not.");
+        $this->assertEquals($expected_exit_code, $commandTester->getStatusCode());
     }
 
     /**
@@ -87,13 +88,13 @@ class UnsetKeyCommandTest extends TestBase
      */
     public function getValueProvider()
     {
-
         $filename = 'tests/resources/temp.yml';
 
         return [
-            [$filename, 'deep-array.second.third.fourth', "The key 'deep-array.second.third.fourth' was removed from $filename."],
-            [$filename, 'flat-array.0', "The key 'flat-array.0' was removed from $filename."],
-            [$filename, 'inline-array.0', "The key 'inline-array.0' was removed from $filename."],
+            [$filename, 'deep-array.second.third.fourth', "The key 'deep-array.second.third.fourth' was removed from $filename.", 0],
+            [$filename, 'flat-array.0', "The key 'flat-array.0' was removed from $filename.", 0],
+            [$filename, 'inline-array.0', "The key 'inline-array.0' was removed from $filename.", 0],
+            // @todo Test a failure!
             // @todo Uncomment after this is merged:
             // https://github.com/dflydev/dflydev-dot-access-data/pull/7
             // [$filename, 'null-value', "The key 'null-value' was removed from $filename."],
