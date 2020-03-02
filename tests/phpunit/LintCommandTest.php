@@ -16,7 +16,7 @@ class LintCommandTest extends TestBase
      *
      * @dataProvider getValueProvider
      */
-    public function testLint($file, $expected)
+    public function testLint($file, $expected_output, $expected_exit_code)
     {
         $this->application->add(new LintCommand());
 
@@ -28,7 +28,8 @@ class LintCommandTest extends TestBase
         ), ['verbosity' => Output::VERBOSITY_VERBOSE]);
 
         $output = $commandTester->getDisplay();
-        $this->assertContains($expected, $output);
+        $this->assertContains($expected_output, $output);
+        $this->assertEquals($expected_exit_code, $commandTester->getStatusCode());
     }
 
     /**
@@ -41,9 +42,9 @@ class LintCommandTest extends TestBase
     {
 
         return [
-            ['tests/resources/good.yml', "The file tests/resources/good.yml contains valid YAML."],
-            ['tests/resources/bad.yml', "There was an error parsing tests/resources/bad.yml. The contents are not valid YAML."],
-            ['missing.yml', "The file missing.yml does not exist."],
+            ['tests/resources/good.yml', "The file tests/resources/good.yml contains valid YAML.", 0],
+            ['tests/resources/bad.yml', "There was an error parsing tests/resources/bad.yml. The contents are not valid YAML.", 1],
+            ['missing.yml', "The file missing.yml does not exist.", 1],
         ];
     }
 }

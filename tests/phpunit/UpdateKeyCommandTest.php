@@ -28,26 +28,36 @@ class UpdateKeyCommandTest extends TestBase
      *
      * @dataProvider getValueProvider
      */
-    public function testUpdateKey($file, $key, $new_key, $expected) {
+    public function testUpdateKey($file, $key, $new_key, $expected_output, $expected_exit_code)
+    {
         $contents = $this->getCommand()->loadYamlFile($file);
         $data = new Data($contents);
         $value = $data->get($key);
 
         $commandTester = $this->runCommand($file, $key, $new_key);
         $output = $commandTester->getDisplay();
-        $this->assertContains($expected, $output);
+        $this->assertContains($expected_output, $output);
+        $this->assertEquals($expected_exit_code, $commandTester->getStatusCode());
 
-        $contents = $this->getCommand()->loadYamlFile($file);
-        $data = new Data($contents);
-        $this->assertTrue($data->has($new_key), "The file $file does not contain the new key $new_key. It should.");
-        $this->assertNotTrue($data->has($key), "The file $file contains the old key $key. It should not.");
-        $this->assertEquals($value, $data->get($new_key), "The value of key $new_key does not equal the value of the original key $key");
+        // If we expected the command to be successful, test the file contents.
+        if (!$expected_exit_code) {
+            $contents = $this->getCommand()->loadYamlFile($file);
+            $data = new Data($contents);
+            $this->assertTrue($data->has($new_key), "The file $file does not contain the new key $new_key. It should.");
+            $this->assertNotTrue($data->has($key), "The file $file contains the old key $key. It should not.");
+            $this->assertEquals(
+                $value,
+                $data->get($new_key),
+                "The value of key $new_key does not equal the value of the original key $key"
+            );
+        }
     }
 
     /**
      * Tests that passing a missing file outputs expected error.
      */
-    public function testMissingFile() {
+    public function testMissingFile()
+    {
         $commandTester = $this->runCommand('missing.yml', 'not-real', 'still-not-real');
         $this->assertContains("The file missing.yml does not exist.", $commandTester->getDisplay());
     }
@@ -57,7 +67,8 @@ class UpdateKeyCommandTest extends TestBase
      *
      * @return UpdateKeyCommand
      */
-    protected function getCommand() {
+    protected function getCommand()
+    {
         $this->application->add(new UpdateKeyCommand());
         $command = $this->application->find('update:key');
 
@@ -76,7 +87,8 @@ class UpdateKeyCommandTest extends TestBase
      *
      * @return \Symfony\Component\Console\Tester\CommandTester
      */
-    protected function runCommand($file, $key, $new_key) {
+    protected function runCommand($file, $key, $new_key)
+    {
         $command = $this->getCommand();
         $commandTester = new CommandTester($command);
         $commandTester->execute(array(
@@ -100,9 +112,10 @@ class UpdateKeyCommandTest extends TestBase
         $file = 'tests/resources/temp.yml';
 
         return [
-            [$file, 'deep-array.second.third.fourth', 'deep-array.second.third.fifth', "The key 'deep-array.second.third.fourth' was changed to 'deep-array.second.third.fifth' in tests/resources/temp.yml."],
-            [$file, 'flat-array.0', 'flat-array.10', "The key 'flat-array.0' was changed to 'flat-array.10' in tests/resources/temp.yml."],
-            [$file, 'inline-array.0', 'inline-array.10', "The key 'inline-array.0' was changed to 'inline-array.10' in tests/resources/temp.yml."],
+            [$file, 'deep-array.second.third.fourth', 'deep-array.second.third.fifth', "The key 'deep-array.second.third.fourth' was changed to 'deep-array.second.third.fifth' in $file.", 0],
+            [$file, 'flat-array.0', 'flat-array.10', "The key 'flat-array.0' was changed to 'flat-array.10' in $file.", 0],
+            [$file, 'inline-array.0', 'inline-array.10', "The key 'inline-array.0' was changed to 'inline-array.10' in $file.", 0],
+            [$file, 'fake-key', 'new-key', "The key 'fake-key' does not exist in $file.", 1],
         ];
     }
 }

@@ -45,7 +45,7 @@ class UpdateValueCommand extends CommandBase
    * @param \Symfony\Component\Console\Input\InputInterface $input
    * @param \Symfony\Component\Console\Output\OutputInterface $output
    *
-   * @return bool
+   * @return int 0 if everything went fine, or an exit code
    */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -59,18 +59,21 @@ class UpdateValueCommand extends CommandBase
         }
 
         $data = new Data($yaml_parsed);
-        
+
         $typed_value = $value;
         if (strtolower($value) === 'false') {
             $typed_value = false;
         } elseif (strtolower($value) === 'true') {
             $typed_value = true;
         }
-        
+
         $data->set($key, $typed_value);
 
         if ($this->writeYamlFile($filename, $data)) {
             $this->output->writeln("<info>The value for key '$key' was set to '$value' in $filename.</info>");
+            return 0;
         }
+
+        return 1;
     }
 }

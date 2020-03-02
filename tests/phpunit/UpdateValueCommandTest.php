@@ -27,7 +27,7 @@ class UpdateValueCommandTest extends TestBase
      *
      * @dataProvider getValueProvider
      */
-    public function testUpdateValue($file, $key, $value, $expected_value, $expected_output)
+    public function testUpdateValue($file, $key, $value, $expected_value, $expected_output, $expected_exit_code)
     {
         $commandTester = $this->runCommand($file, $key, $value);
         $output = $commandTester->getDisplay();
@@ -36,12 +36,14 @@ class UpdateValueCommandTest extends TestBase
         $contents = $this->getCommand()->loadYamlFile($file);
         $data = new Data($contents);
         $this->assertEquals($expected_value, $data->get($key));
+        $this->assertEquals($expected_exit_code, $commandTester->getStatusCode());
     }
 
     /**
      * Tests that passing a missing file outputs expected error.
      */
-    public function testMissingFile() {
+    public function testMissingFile()
+    {
         $commandTester = $this->runCommand('missing.yml', 'not-real', 'still-not-real');
         $this->assertContains("The file missing.yml does not exist.", $commandTester->getDisplay());
     }
@@ -51,7 +53,8 @@ class UpdateValueCommandTest extends TestBase
      *
      * @return UpdateValueCommand
      */
-    protected function getCommand() {
+    protected function getCommand()
+    {
         $this->application->add(new UpdateValueCommand());
         $command = $this->application->find('update:value');
 
@@ -70,7 +73,8 @@ class UpdateValueCommandTest extends TestBase
      *
      * @return \Symfony\Component\Console\Tester\CommandTester
      */
-    protected function runCommand($file, $key, $value) {
+    protected function runCommand($file, $key, $value)
+    {
         $command = $this->getCommand();
         $commandTester = new CommandTester($command);
         $commandTester->execute(array(
@@ -94,12 +98,12 @@ class UpdateValueCommandTest extends TestBase
         $file = 'tests/resources/temp.yml';
 
         return [
-            [$file, 'deep-array.second.third.fourth', 'goodbye world', 'goodbye world', "The value for key 'deep-array.second.third.fourth' was set to 'goodbye world' in tests/resources/temp.yml."],
-            [$file, 'flat-array.0', 'goodbye world', 'goodbye world', "The value for key 'flat-array.0' was set to 'goodbye world' in tests/resources/temp.yml."],
-            [$file, 'inline-array.0', 'goodbye world', 'goodbye world', "The value for key 'inline-array.0' was set to 'goodbye world' in tests/resources/temp.yml."],
-            [$file, 'new-key.sub-key', 'hello world', 'hello world', "The value for key 'new-key.sub-key' was set to 'hello world' in tests/resources/temp.yml."],
-            [$file, 'boolean.0', 'false', false, "The value for key 'boolean.0' was set to 'false' in tests/resources/temp.yml."],
-            [$file, 'boolean.1', 'true', true, "The value for key 'boolean.1' was set to 'true' in tests/resources/temp.yml."],
+            [$file, 'deep-array.second.third.fourth', 'goodbye world', 'goodbye world', "The value for key 'deep-array.second.third.fourth' was set to 'goodbye world' in $file.", 0],
+            [$file, 'flat-array.0', 'goodbye world', 'goodbye world', "The value for key 'flat-array.0' was set to 'goodbye world' in $file.", 0],
+            [$file, 'inline-array.0', 'goodbye world', 'goodbye world', "The value for key 'inline-array.0' was set to 'goodbye world' in $file.", 0],
+            [$file, 'new-key.sub-key', 'hello world', 'hello world', "The value for key 'new-key.sub-key' was set to 'hello world' in $file.", 0],
+            [$file, 'boolean.0', 'false', false, "The value for key 'boolean.0' was set to 'false' in $file.", 0],
+            [$file, 'boolean.1', 'true', true, "The value for key 'boolean.1' was set to 'true' in $file.", 0],
         ];
     }
 }

@@ -14,7 +14,7 @@ class GetValueCommandTest extends TestBase
      *
      * @dataProvider getValueProvider
      */
-    public function testGetValue($file, $key, $expected)
+    public function testGetValue($file, $key, $expected_output, $expected_exit_code)
     {
         $this->application->add(new GetValueCommand());
 
@@ -27,7 +27,8 @@ class GetValueCommandTest extends TestBase
         ));
 
         $output = $commandTester->getDisplay();
-        $this->assertContains($expected, $output);
+        $this->assertContains($expected_output, $output);
+        $this->assertEquals($expected_exit_code, $commandTester->getStatusCode());
     }
 
     /**
@@ -42,15 +43,15 @@ class GetValueCommandTest extends TestBase
         $file = 'tests/resources/good.yml';
 
         return [
-            [$file, 'not-real', "The key not-real does not exist."],
-            ['missing.yml', 'not-real', "The file missing.yml does not exist."],
-            [$file, 'deep-array.second.third.fourth', 'hello world'],
+            [$file, 'not-real', "The key not-real does not exist.", 1],
+            ['missing.yml', 'not-real', "The file missing.yml does not exist.", 1],
+            [$file, 'deep-array.second.third.fourth', 'hello world', 0],
             [$file, 'flat-array', '- one
 - two
-- three'],
+- three', 0],
             [$file, 'inline-array', '- one
 - two
-- three'],
+- three', 0],
         ];
     }
 }

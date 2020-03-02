@@ -27,20 +27,23 @@ class UnsetKeyCommandTest extends TestBase
      *
      * @dataProvider getValueProvider
      */
-    public function testUnsetKey($filename, $key, $expected) {
+    public function testUnsetKey($filename, $key, $expected_output, $expected_exit_code)
+    {
         $commandTester = $this->runCommand($filename, $key);
         $output = $commandTester->getDisplay();
-        $this->assertContains($expected, $output);
+        $this->assertContains($expected_output, $output);
 
         $contents = $this->getCommand()->loadYamlFile($filename);
         $data = new Data($contents);
         $this->assertNotTrue($data->has($key), "The file $filename contains the old key $key. It should not.");
+        $this->assertEquals($expected_exit_code, $commandTester->getStatusCode());
     }
 
     /**
      * Tests that passing a missing file outputs expected error.
      */
-    public function testMissingFile() {
+    public function testMissingFile()
+    {
         $commandTester = $this->runCommand('missing.yml', 'not-real');
         $this->assertContains("The file missing.yml does not exist.", $commandTester->getDisplay());
     }
@@ -50,7 +53,8 @@ class UnsetKeyCommandTest extends TestBase
      *
      * @return UnsetKeyCommand
      */
-    protected function getCommand() {
+    protected function getCommand()
+    {
         $this->application->add(new UnsetKeyCommand());
         $command = $this->application->find('unset:key');
 
@@ -67,7 +71,8 @@ class UnsetKeyCommandTest extends TestBase
      *
      * @return \Symfony\Component\Console\Tester\CommandTester
      */
-    protected function runCommand($filename, $key) {
+    protected function runCommand($filename, $key)
+    {
         $command = $this->getCommand();
         $commandTester = new CommandTester($command);
         $commandTester->execute(array(
@@ -87,16 +92,14 @@ class UnsetKeyCommandTest extends TestBase
      */
     public function getValueProvider()
     {
-
         $filename = 'tests/resources/temp.yml';
 
         return [
-            [$filename, 'deep-array.second.third.fourth', "The key 'deep-array.second.third.fourth' was removed from $filename."],
-            [$filename, 'flat-array.0', "The key 'flat-array.0' was removed from $filename."],
-            [$filename, 'inline-array.0', "The key 'inline-array.0' was removed from $filename."],
-            // @todo Uncomment after this is merged:
-            // https://github.com/dflydev/dflydev-dot-access-data/pull/7
-            // [$filename, 'null-value', "The key 'null-value' was removed from $filename."],
+            [$filename, 'deep-array.second.third.fourth', "The key 'deep-array.second.third.fourth' was removed from $filename.", 0],
+            [$filename, 'flat-array.0', "The key 'flat-array.0' was removed from $filename.", 0],
+            [$filename, 'inline-array.0', "The key 'inline-array.0' was removed from $filename.", 0],
+            [$filename, 'null-value', "The key 'null-value' was removed from $filename.", 0],
+            [$filename, 'fake-value', "The key 'fake-value' does not exist in $filename.", 1],
         ];
     }
 }

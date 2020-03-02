@@ -45,7 +45,7 @@ class UpdateKeyCommand extends CommandBase
      * @param \Symfony\Component\Console\Input\InputInterface $input
      * @param \Symfony\Component\Console\Output\OutputInterface $output
      *
-     * @return bool
+     * @return int 0 if everything went fine, or an exit code
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -60,6 +60,7 @@ class UpdateKeyCommand extends CommandBase
 
         $data = new Data($yaml_parsed);
         if (!$this->checkKeyExists($data, $key)) {
+            $this->output->writeln("<error>The key '$key' does not exist in $filename.</error>");
             return 1;
         }
 
@@ -69,6 +70,9 @@ class UpdateKeyCommand extends CommandBase
 
         if ($this->writeYamlFile($filename, $data)) {
             $this->output->writeln("<info>The key '$key' was changed to '$new_key' in $filename.</info>");
+            return 0;
         }
+
+        return 1;
     }
 }
