@@ -57,8 +57,7 @@ class LintCommand extends CommandBase
                     return 1;
                 }
             }
-        }
-        else {
+        } else {
             $yaml_parsed = $this->loadYamlFile($path);
             if (!$yaml_parsed) {
                 // Exit with a status of 1.
@@ -69,8 +68,7 @@ class LintCommand extends CommandBase
         if (OutputInterface::VERBOSITY_VERBOSE === $output->getVerbosity()) {
             if (is_dir($path)) {
                 $output->writeln("<info>The directory $path contains valid YAML.</info>");
-            }
-            else {
+            } else {
                 $output->writeln("<info>The file $path contains valid YAML.</info>");
             }
         }
