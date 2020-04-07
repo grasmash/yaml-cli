@@ -77,7 +77,7 @@ class UnsetKeyCommandTest extends TestBase
         $commandTester = new CommandTester($command);
         $commandTester->execute(array(
             'command' => $command->getName(),
-            'path' => $filename,
+            'filename' => $filename,
             'key' => $key
         ));
 

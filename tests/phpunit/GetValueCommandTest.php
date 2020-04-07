@@ -22,7 +22,7 @@ class GetValueCommandTest extends TestBase
         $commandTester = new CommandTester($command);
         $commandTester->execute(array(
             'command'  => $command->getName(),
-            'path' => $file,
+            'filename' => $file,
             'key' => $key
         ));
 
