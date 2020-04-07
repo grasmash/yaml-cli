@@ -93,7 +93,7 @@ class UpdateKeyCommandTest extends TestBase
         $commandTester = new CommandTester($command);
         $commandTester->execute(array(
             'command' => $command->getName(),
-            'filename' => $file,
+            'path' => $file,
             'key' => $key,
             'new-key' => $new_key,
         ));
