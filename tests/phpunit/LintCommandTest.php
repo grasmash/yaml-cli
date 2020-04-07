@@ -24,7 +24,7 @@ class LintCommandTest extends TestBase
         $commandTester = new CommandTester($command);
         $commandTester->execute(array(
             'command'  => $command->getName(),
-            'filename' => $file
+            'path' => $file
         ), ['verbosity' => Output::VERBOSITY_VERBOSE]);
 
         $output = $commandTester->getDisplay();
