@@ -7,7 +7,7 @@
         "symfony/yaml":                   "^4 | ^5",
         "symfony/console":                "^4 | ^5",
         "symfony/filesystem":             "^4 | ^5",
-        "dflydev/dot-access-data":        "^1.1.0"
+        "dflydev/dot-access-data":        "^1.1.0 | ^2 | ^3"
     },
     "license": "MIT",
     "authors": [
