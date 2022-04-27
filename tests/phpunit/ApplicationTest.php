@@ -19,7 +19,7 @@ class ApplicationTest extends TestBase
     {
         $bin = realpath(__DIR__ . '/../../bin/yaml-cli');
         $output = shell_exec("$bin list");
-        $this->assertContains($expected, $output);
+        $this->assertStringContainsString($expected, $output);
     }
 
     /**

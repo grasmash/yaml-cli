@@ -16,7 +16,7 @@ class UpdateValueCommandTest extends TestBase
     /**
      * {@inheritdoc}
      */
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupTemporaryConfigFiles();
@@ -31,7 +31,7 @@ class UpdateValueCommandTest extends TestBase
     {
         $commandTester = $this->runCommand($file, $key, $value);
         $output = $commandTester->getDisplay();
-        $this->assertContains($expected_output, $output);
+        $this->assertStringContainsString($expected_output, $output);
 
         $contents = $this->getCommand()->loadYamlFile($file);
         $data = new Data($contents);
@@ -45,7 +45,7 @@ class UpdateValueCommandTest extends TestBase
     public function testMissingFile()
     {
         $commandTester = $this->runCommand('missing.yml', 'not-real', 'still-not-real');
-        $this->assertContains("The file missing.yml does not exist.", $commandTester->getDisplay());
+        $this->assertStringContainsString("The file missing.yml does not exist.", $commandTester->getDisplay());
     }
 
     /**

@@ -4,7 +4,6 @@ namespace Grasmash\YamlCli\Tests\Command;
 
 use Dflydev\DotAccessData\Data;
 use Grasmash\YamlCli\Command\UpdateKeyCommand;
-use Grasmash\YamlCli\Command\UpdateValueCommand;
 use Grasmash\YamlCli\Tests\TestBase;
 use Symfony\Component\Console\Tester\CommandTester;
 
@@ -17,7 +16,7 @@ class UpdateKeyCommandTest extends TestBase
     /**
      * {@inheritdoc}
      */
-    public function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
         $this->setupTemporaryConfigFiles();
@@ -32,11 +31,11 @@ class UpdateKeyCommandTest extends TestBase
     {
         $contents = $this->getCommand()->loadYamlFile($file);
         $data = new Data($contents);
-        $value = $data->get($key);
+        $value = $data->get($key, null);
 
         $commandTester = $this->runCommand($file, $key, $new_key);
         $output = $commandTester->getDisplay();
-        $this->assertContains($expected_output, $output);
+        $this->assertStringContainsString($expected_output, $output);
         $this->assertEquals($expected_exit_code, $commandTester->getStatusCode());
 
         // If we expected the command to be successful, test the file contents.
@@ -59,7 +58,7 @@ class UpdateKeyCommandTest extends TestBase
     public function testMissingFile()
     {
         $commandTester = $this->runCommand('missing.yml', 'not-real', 'still-not-real');
-        $this->assertContains("The file missing.yml does not exist.", $commandTester->getDisplay());
+        $this->assertStringContainsString("The file missing.yml does not exist.", $commandTester->getDisplay());
     }
 
     /**
