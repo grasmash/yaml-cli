@@ -3,13 +3,14 @@
 namespace Grasmash\YamlCli\Tests;
 
 use Symfony\Component\Console\Application;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Class BltTestBase.
  *
  * Base class for all tests that are executed for BLT itself.
  */
-abstract class TestBase extends \PHPUnit_Framework_TestCase
+abstract class TestBase extends TestCase
 {
 
     /** @var Application */
@@ -23,8 +24,7 @@ abstract class TestBase extends \PHPUnit_Framework_TestCase
      *
      * @see https://symfony.com/doc/current/console.html#testing-commands
      */
-    public function setUp()
-    {
+    protected function setUp(): void {
         parent::setUp();
 
         $this->application = new Application();
@@ -33,8 +33,7 @@ abstract class TestBase extends \PHPUnit_Framework_TestCase
     /**
      * Removes temporary file.
      */
-    public function tearDown()
-    {
+    protected function tearDown(): void {
         parent::tearDown();
 
         // This will only exist if a test called setupTemporaryConfigFiles().
