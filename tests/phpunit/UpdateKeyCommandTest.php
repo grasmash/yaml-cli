@@ -31,7 +31,7 @@ class UpdateKeyCommandTest extends TestBase
     {
         $contents = $this->getCommand()->loadYamlFile($file);
         $data = new Data($contents);
-        $value = $data->get($key);
+        $value = $data->get($key, null);
 
         $commandTester = $this->runCommand($file, $key, $new_key);
         $output = $commandTester->getDisplay();
