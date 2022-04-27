@@ -16,8 +16,7 @@ class UnsetKeyCommandTest extends TestBase
     /**
      * {@inheritdoc}
      */
-    public function setUp()
-    {
+    protected function setUp(): void {
         parent::setUp();
         $this->setupTemporaryConfigFiles();
     }
@@ -31,7 +30,7 @@ class UnsetKeyCommandTest extends TestBase
     {
         $commandTester = $this->runCommand($filename, $key);
         $output = $commandTester->getDisplay();
-        $this->assertContains($expected_output, $output);
+        $this->assertStringContainsString($expected_output, $output);
 
         $contents = $this->getCommand()->loadYamlFile($filename);
         $data = new Data($contents);
@@ -45,7 +44,7 @@ class UnsetKeyCommandTest extends TestBase
     public function testMissingFile()
     {
         $commandTester = $this->runCommand('missing.yml', 'not-real');
-        $this->assertContains("The file missing.yml does not exist.", $commandTester->getDisplay());
+        $this->assertStringContainsString("The file missing.yml does not exist.", $commandTester->getDisplay());
     }
 
     /**

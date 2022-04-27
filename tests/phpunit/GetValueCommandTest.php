@@ -27,7 +27,7 @@ class GetValueCommandTest extends TestBase
         ));
 
         $output = $commandTester->getDisplay();
-        $this->assertContains($expected_output, $output);
+        $this->assertStringContainsString($expected_output, $output);
         $this->assertEquals($expected_exit_code, $commandTester->getStatusCode());
     }
 
