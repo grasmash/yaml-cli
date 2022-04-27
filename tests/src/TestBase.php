@@ -24,7 +24,8 @@ abstract class TestBase extends TestCase
      *
      * @see https://symfony.com/doc/current/console.html#testing-commands
      */
-    protected function setUp(): void {
+    protected function setUp(): void
+    {
         parent::setUp();
 
         $this->application = new Application();
@@ -33,7 +34,8 @@ abstract class TestBase extends TestCase
     /**
      * Removes temporary file.
      */
-    protected function tearDown(): void {
+    protected function tearDown(): void
+    {
         parent::tearDown();
 
         // This will only exist if a test called setupTemporaryConfigFiles().
