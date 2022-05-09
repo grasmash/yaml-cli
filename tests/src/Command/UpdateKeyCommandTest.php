@@ -90,12 +90,12 @@ class UpdateKeyCommandTest extends TestBase
     {
         $command = $this->getCommand();
         $commandTester = new CommandTester($command);
-        $commandTester->execute(array(
+        $commandTester->execute([
             'command' => $command->getName(),
             'filename' => $file,
             'key' => $key,
             'new-key' => $new_key,
-        ));
+        ]);
 
         return $commandTester;
     }
@@ -111,10 +111,34 @@ class UpdateKeyCommandTest extends TestBase
         $file = 'tests/resources/temp.yml';
 
         return [
-            [$file, 'deep-array.second.third.fourth', 'deep-array.second.third.fifth', "The key 'deep-array.second.third.fourth' was changed to 'deep-array.second.third.fifth' in $file.", 0],
-            [$file, 'flat-array.0', 'flat-array.10', "The key 'flat-array.0' was changed to 'flat-array.10' in $file.", 0],
-            [$file, 'inline-array.0', 'inline-array.10', "The key 'inline-array.0' was changed to 'inline-array.10' in $file.", 0],
-            [$file, 'fake-key', 'new-key', "The key 'fake-key' does not exist in $file.", 1],
+            [
+                $file,
+                'deep-array.second.third.fourth',
+                'deep-array.second.third.fifth',
+                "The key 'deep-array.second.third.fourth' was changed to 'deep-array.second.third.fifth' in $file.",
+                0,
+            ],
+            [
+                $file,
+                'flat-array.0',
+                'flat-array.10',
+                "The key 'flat-array.0' was changed to 'flat-array.10' in $file.",
+                0,
+            ],
+            [
+                $file,
+                'inline-array.0',
+                'inline-array.10',
+                "The key 'inline-array.0' was changed to 'inline-array.10' in $file.",
+                0,
+            ],
+            [
+                $file,
+                'fake-key',
+                'new-key',
+                "The key 'fake-key' does not exist in $file.",
+                1,
+            ],
         ];
     }
 }

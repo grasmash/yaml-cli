@@ -20,11 +20,11 @@ class GetTypeCommandTest extends TestBase
 
         $command = $this->application->find('get:type');
         $commandTester = new CommandTester($command);
-        $commandTester->execute(array(
-            'command'  => $command->getName(),
+        $commandTester->execute([
+            'command' => $command->getName(),
             'filename' => $file,
-            'key' => $key
-        ));
+            'key' => $key,
+        ]);
 
         $output = $commandTester->getDisplay();
         $this->assertStringContainsString($expected_output, $output);
@@ -44,7 +44,12 @@ class GetTypeCommandTest extends TestBase
 
         return [
             [$file, 'not-real', "The key not-real does not exist.", 1],
-            ['missing.yml', 'not-real', "The file missing.yml does not exist.", 1],
+            [
+                'missing.yml',
+                'not-real',
+                "The file missing.yml does not exist.",
+                1,
+            ],
             [$file, 'deep-array.second.third.fourth', 'string', 0],
             [$file, 'flat-array', 'array', 0],
             [$file, 'inline-array', 'array', 0],

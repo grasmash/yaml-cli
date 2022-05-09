@@ -8,7 +8,6 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Yaml\Yaml;
 
 /**
  * Class CreateProjectCommand
@@ -17,9 +16,10 @@ use Symfony\Component\Yaml\Yaml;
  */
 class UpdateValueCommand extends CommandBase
 {
-  /**
-   * {inheritdoc}
-   */
+
+    /**
+     * {inheritdoc}
+     */
     protected function configure()
     {
         $this
@@ -31,11 +31,11 @@ class UpdateValueCommand extends CommandBase
                 InputArgument::REQUIRED,
                 "The filename of the YAML file"
             )
-             ->addArgument(
-                 'key',
-                 InputArgument::REQUIRED,
-                 "The key for the value to set, in dot notation"
-             )
+            ->addArgument(
+                'key',
+                InputArgument::REQUIRED,
+                "The key for the value to set, in dot notation"
+            )
             ->addArgument(
                 'value',
                 InputArgument::REQUIRED,
@@ -44,12 +44,12 @@ class UpdateValueCommand extends CommandBase
             ->addOption('type', 't', InputOption::VALUE_REQUIRED, 'Set the variable type for the value. Accepted types are int, integer, bool, boolean, str, and string.');
     }
 
-  /**
-   * @param \Symfony\Component\Console\Input\InputInterface $input
-   * @param \Symfony\Component\Console\Output\OutputInterface $output
-   *
-   * @return int 0 if everything went fine, or an exit code
-   */
+    /**
+     * @param \Symfony\Component\Console\Input\InputInterface $input
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
+     *
+     * @return int 0 if everything went fine, or an exit code
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $filename = $input->getArgument('filename');

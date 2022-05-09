@@ -20,11 +20,11 @@ class GetValueCommandTest extends TestBase
 
         $command = $this->application->find('get:value');
         $commandTester = new CommandTester($command);
-        $commandTester->execute(array(
-            'command'  => $command->getName(),
+        $commandTester->execute([
+            'command' => $command->getName(),
             'filename' => $file,
-            'key' => $key
-        ));
+            'key' => $key,
+        ]);
 
         $output = $commandTester->getDisplay();
         $this->assertStringContainsString($expected_output, $output);
@@ -44,14 +44,29 @@ class GetValueCommandTest extends TestBase
 
         return [
             [$file, 'not-real', "The key not-real does not exist.", 1],
-            ['missing.yml', 'not-real', "The file missing.yml does not exist.", 1],
+            [
+                'missing.yml',
+                'not-real',
+                "The file missing.yml does not exist.",
+                1,
+            ],
             [$file, 'deep-array.second.third.fourth', 'hello world', 0],
-            [$file, 'flat-array', '- one
+            [
+                $file,
+                'flat-array',
+                '- one
 - two
-- three', 0],
-            [$file, 'inline-array', '- one
+- three',
+                0,
+            ],
+            [
+                $file,
+                'inline-array',
+                '- one
 - two
-- three', 0],
+- three',
+                0,
+            ],
         ];
     }
 }

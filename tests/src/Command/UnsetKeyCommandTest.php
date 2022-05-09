@@ -75,11 +75,11 @@ class UnsetKeyCommandTest extends TestBase
     {
         $command = $this->getCommand();
         $commandTester = new CommandTester($command);
-        $commandTester->execute(array(
+        $commandTester->execute([
             'command' => $command->getName(),
             'filename' => $filename,
-            'key' => $key
-        ));
+            'key' => $key,
+        ]);
 
         return $commandTester;
     }
@@ -95,11 +95,36 @@ class UnsetKeyCommandTest extends TestBase
         $filename = 'tests/resources/temp.yml';
 
         return [
-            [$filename, 'deep-array.second.third.fourth', "The key 'deep-array.second.third.fourth' was removed from $filename.", 0],
-            [$filename, 'flat-array.0', "The key 'flat-array.0' was removed from $filename.", 0],
-            [$filename, 'inline-array.0', "The key 'inline-array.0' was removed from $filename.", 0],
-            [$filename, 'null-value', "The key 'null-value' was removed from $filename.", 0],
-            [$filename, 'fake-value', "The key 'fake-value' does not exist in $filename.", 1],
+            [
+                $filename,
+                'deep-array.second.third.fourth',
+                "The key 'deep-array.second.third.fourth' was removed from $filename.",
+                0,
+            ],
+            [
+                $filename,
+                'flat-array.0',
+                "The key 'flat-array.0' was removed from $filename.",
+                0,
+            ],
+            [
+                $filename,
+                'inline-array.0',
+                "The key 'inline-array.0' was removed from $filename.",
+                0,
+            ],
+            [
+                $filename,
+                'null-value',
+                "The key 'null-value' was removed from $filename.",
+                0,
+            ],
+            [
+                $filename,
+                'fake-value',
+                "The key 'fake-value' does not exist in $filename.",
+                1,
+            ],
         ];
     }
 }

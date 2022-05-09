@@ -10,18 +10,18 @@
         convertNoticesToExceptions="true"
         convertWarningsToExceptions="true"
 >
-  <coverage processUncoveredFiles="true">
-    <include>
-      <directory suffix=".php">src</directory>
-    </include>
-    <report>
-      <clover outputFile="build/logs/clover.xml"/>
-    </report>
-  </coverage>
-  <testsuites>
-    <testsuite name="Yaml CLI Test Suite">
-      <directory>tests/src</directory>
-    </testsuite>
-  </testsuites>
-  <logging/>
+    <coverage processUncoveredFiles="true">
+        <include>
+            <directory suffix=".php">src</directory>
+        </include>
+        <report>
+            <clover outputFile="build/logs/clover.xml"/>
+        </report>
+    </coverage>
+    <testsuites>
+        <testsuite name="Yaml CLI Test Suite">
+            <directory>tests/src</directory>
+        </testsuite>
+    </testsuites>
+    <logging/>
 </phpunit>
