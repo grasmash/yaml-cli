@@ -31,8 +31,8 @@
       "bin/yaml-cli"
     ],
     "scripts": {
-        "cs": "phpcs -n --standard=PSR2 src tests bin --exclude=Generic.Files.LineLength",
-        "cbf": "phpcbf -n --standard=PSR2 src tests bin --exclude=Generic.Files.LineLength",
+        "cs": "phpcs",
+        "cbf": "phpcbf",
         "unit": "phpunit",
         "lint": [
             "find src -name '*.php' -print0 | xargs -0 -n1 php -l",
