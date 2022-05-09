@@ -25,6 +25,25 @@ Yet another  command line tool for reading and manipulating yaml files, built on
     ./vendor/bin/yaml-cli update:key somefile.yml old-key new-key
     ./vendor/bin/yaml-cli update:value somefile.yml some-key some-value
 
+    # Cast to boolean.
+    ./vendor/bin/yaml-cli update:value somefile.yml some-key false
+    ./vendor/bin/yaml-cli update:value somefile.yml some-key true
+    ./vendor/bin/yaml-cli update:value somefile.yml some-key 0 --type=boolean
+    ./vendor/bin/yaml-cli update:value somefile.yml some-key 0 --type=bool
+
+    # Cast to null.
+    ./vendor/bin/yaml-cli update:value somefile.yml some-key null
+    ./vendor/bin/yaml-cli update:value somefile.yml some-key ~ --type=null
+
+    # Cast to integer.
+    ./vendor/bin/yaml-cli update:value somefile.yml some-key 1 --type=integer
+    ./vendor/bin/yaml-cli update:value somefile.yml some-key 1 --type=int
+
+    # Cast to float/double/real.
+    ./vendor/bin/yaml-cli update:value somefile.yml some-key 1.0 --type=float
+    ./vendor/bin/yaml-cli update:value somefile.yml some-key 1.0 --type=double
+    ./vendor/bin/yaml-cli update:value somefile.yml some-key 1.0 --type=real
+
 ### Similar tools:
 
 - Javascript - https://github.com/pandastrike/yaml-cli
