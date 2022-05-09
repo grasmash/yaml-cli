@@ -114,6 +114,11 @@ class UpdateValueCommandTest extends TestBase
             [$file, 'boolean.1', '1', 'boolean', true, "The value for key 'boolean.1' was set to '1' (boolean) in $file.", 0],
             [$file, 'string.0', 'false', 'string', 'false', "The value for key 'string.0' was set to 'false' (string) in $file.", 0],
             [$file, 'string.1', 'true', 'string', 'true', "The value for key 'string.1' was set to 'true' (string) in $file.", 0],
+            [$file, 'string.2', 'null', 'string', 'null', "The value for key 'string.2' was set to 'null' (string) in $file.", 0],
+            [$file, 'null.0', 'null', null, null, "The value for key 'null.0' was set to 'null' (NULL) in $file.", 0],
+            [$file, 'float.0', '1.0', 'float', 1.0, "The value for key 'float.0' was set to '1.0' (double) in $file.", 0],
+            [$file, 'float.1', '1.0', 'double', 1.0, "The value for key 'float.1' was set to '1.0' (double) in $file.", 0],
+            [$file, 'float.2', '1.0', 'real', 1.0, "The value for key 'float.2' was set to '1.0' (double) in $file.", 0],
         ];
     }
 }

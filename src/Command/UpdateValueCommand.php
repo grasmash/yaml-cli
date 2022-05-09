@@ -68,14 +68,19 @@ class UpdateValueCommand extends CommandBase
             $value = match ($type) {
                 'int', 'integer' => (int) $raw_value,
                 'bool', 'boolean' => (bool) $raw_value,
+                'float', 'double', 'real' => (float) $raw_value,
                 'str', 'string' => (string) $raw_value,
+                'null' => null,
                 default => throw new RuntimeException('The option type must have a value of int, integer, bool, or boolean.'),
             };
         } elseif (strtolower($value) === 'false') {
             $value = false;
         } elseif (strtolower($value) === 'true') {
             $value = true;
+        } elseif (strtolower($value) === 'null') {
+            $value = null;
         }
+
 
         $data->set($key, $value);
 
