@@ -3,8 +3,10 @@
 namespace Grasmash\YamlCli\Command;
 
 use Dflydev\DotAccessData\Data;
+use Symfony\Component\Console\Exception\RuntimeException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Yaml\Yaml;
 
@@ -38,7 +40,8 @@ class UpdateValueCommand extends CommandBase
                 'value',
                 InputArgument::REQUIRED,
                 "The new value"
-            );
+            )
+            ->addOption('type', 't', InputOption::VALUE_REQUIRED, 'Set the variable type for the value');
     }
 
   /**
@@ -51,7 +54,7 @@ class UpdateValueCommand extends CommandBase
     {
         $filename = $input->getArgument('filename');
         $key = $input->getArgument('key');
-        $value = $input->getArgument('value');
+        $raw_value = $input->getArgument('value');
         $yaml_parsed = $this->loadYamlFile($filename);
         if ($yaml_parsed === false) {
             // Exit with a status of 1.
@@ -60,17 +63,25 @@ class UpdateValueCommand extends CommandBase
 
         $data = new Data($yaml_parsed);
 
-        $typed_value = $value;
-        if (strtolower($value) === 'false') {
-            $typed_value = false;
-        } elseif (strtolower($value) === 'true') {
-            $typed_value = true;
+        $value = $raw_value;
+        if ($type = $input->getOption('type')) {
+            $value = match ($type) {
+                'int', 'integer' => (int) $raw_value,
+                'bool', 'boolean' => (bool) $raw_value,
+                default => throw new RuntimeException('The option type must have a value of int, integer, bool, or boolean.'),
+            };
         }
 
-        $data->set($key, $typed_value);
+        if (strtolower($value) === 'false') {
+            $value = false;
+        } elseif (strtolower($value) === 'true') {
+            $value = true;
+        }
+
+        $data->set($key, $value);
 
         if ($this->writeYamlFile($filename, $data)) {
-            $this->output->writeln("<info>The value for key '$key' was set to '$value' in $filename.</info>");
+            $this->output->writeln("<info>The value for key '$key' was set to '$raw_value' (" . gettype($value) . ") in $filename.</info>");
             return 0;
         }
 
