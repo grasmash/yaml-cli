@@ -56,13 +56,12 @@ jobs:
       if: matrix.coverage == 'none'
       run: composer run-script test
 
-
     - name: Run coverage
       if: matrix.coverage == 'pcov'
-      run: composer coverage
+      run: composer run-script coverage
       
     - name: Upload coverage results to Coveralls
       if: matrix.coverage == 'pcov'
       env:
         COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: composer coveralls
+      run: composer run-script coveralls
