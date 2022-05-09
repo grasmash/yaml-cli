@@ -32,6 +32,7 @@ class ApplicationTest extends TestBase
     {
         return [
             ['get:value'],
+            ['get:type'],
             ['lint'],
             ['unset:key'],
             ['update:key'],
