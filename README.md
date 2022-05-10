@@ -46,6 +46,11 @@ the [Symfony console component](http://symfony.com/doc/current/components/consol
     ./vendor/bin/yaml-cli update:value somefile.yml some-key 1.0 --type=double
     ./vendor/bin/yaml-cli update:value somefile.yml some-key 1.0 --type=real
 
+    # Forcibly cast to string for values that would otherwise be boolean or null.
+    ./vendor/bin/yaml-cli update:value somefile.yml some-key true --type=string
+    ./vendor/bin/yaml-cli update:value somefile.yml some-key false --type=string
+    ./vendor/bin/yaml-cli update:value somefile.yml some-key null --type=string
+
 ### Similar tools:
 
 - Javascript - https://github.com/pandastrike/yaml-cli
