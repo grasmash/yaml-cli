@@ -18,11 +18,15 @@ jobs:
         include:
           - os: "ubuntu-latest"
             php: "8.0"
-            env: 'HIGHEST_LOWEST="update --prefer-lowest"'
             coverage: "none"
           - os: "ubuntu-latest"
             php: "8.1"
-            env: 'HIGHEST_LOWEST="update"'
+            coverage: "none"
+          - os: "ubuntu-latest"
+            php: "8.2"
+            coverage: "pcov"
+          - os: "ubuntu-latest"
+            php: "8.3"
             coverage: "pcov"
 
     steps:
@@ -37,17 +41,11 @@ jobs:
       - name: Validate composer.json and composer.lock
         run: composer validate --strict
 
-      - name: Cache Composer packages
-        id: composer-cache
-        uses: actions/cache@v3
-        with:
-          path: vendor
-          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-php-
+      - name: Un-pin PHP version used for dependency resolution
+        run: composer config --unset platform.php
 
-      - name: Install dependencies
-        run: composer -n ${HIGHEST_LOWEST-install} --prefer-dist -o
+      - name: Install dependencies; use "update" so that we can get the right dependencies for our php version
+        run: composer -n update --prefer-dist -o
 
       # Add a test script to composer.json, for instance: "test": "vendor/bin/phpunit"
       # Docs: https://getcomposer.org/doc/articles/scripts.md

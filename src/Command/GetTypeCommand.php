@@ -42,7 +42,7 @@ class GetTypeCommand extends CommandBase
      *
      * @return int 0 if everything went fine, or an exit code
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $filename = $input->getArgument('filename');
         $key = $input->getArgument('key');
