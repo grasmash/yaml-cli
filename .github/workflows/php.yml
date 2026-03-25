@@ -17,16 +17,13 @@ jobs:
       matrix:
         include:
           - os: "ubuntu-latest"
-            php: "8.0"
-            coverage: "none"
-          - os: "ubuntu-latest"
-            php: "8.1"
-            coverage: "none"
-          - os: "ubuntu-latest"
             php: "8.2"
-            coverage: "pcov"
+            coverage: "none"
           - os: "ubuntu-latest"
             php: "8.3"
+            coverage: "none"
+          - os: "ubuntu-latest"
+            php: "8.4"
             coverage: "pcov"
 
     steps:
