@@ -4,9 +4,9 @@
   "type": "library",
   "require": {
     "php": ">=8.2",
-    "symfony/yaml": "^6 || ^7 || ^8",
-    "symfony/console": "^6 || ^7 || ^8",
-    "symfony/filesystem": "^6 || ^7 || ^8",
+    "symfony/yaml": "^7 || ^8",
+    "symfony/console": "^7 || ^8",
+    "symfony/filesystem": "^7 || ^8",
     "dflydev/dot-access-data": "^3"
   },
   "license": "MIT",

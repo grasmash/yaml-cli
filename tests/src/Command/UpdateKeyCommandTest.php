@@ -68,7 +68,7 @@ class UpdateKeyCommandTest extends TestBase
      */
     protected function getCommand()
     {
-        $this->application->add(new UpdateKeyCommand());
+        $this->application->addCommand(new UpdateKeyCommand());
         $command = $this->application->find('update:key');
 
         return $command;

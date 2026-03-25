@@ -16,7 +16,7 @@ class GetValueCommandTest extends TestBase
     #[DataProvider('getValueProvider')]
     public function testGetValue($file, $key, $expected_output, $expected_exit_code)
     {
-        $this->application->add(new GetValueCommand());
+        $this->application->addCommand(new GetValueCommand());
 
         $command = $this->application->find('get:value');
         $commandTester = new CommandTester($command);

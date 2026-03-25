@@ -16,7 +16,7 @@ class GetTypeCommandTest extends TestBase
     #[DataProvider('getValueProvider')]
     public function testGetValue($file, $key, $expected_output, $expected_exit_code)
     {
-        $this->application->add(new GetTypeCommand());
+        $this->application->addCommand(new GetTypeCommand());
 
         $command = $this->application->find('get:type');
         $commandTester = new CommandTester($command);

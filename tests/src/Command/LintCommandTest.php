@@ -17,7 +17,7 @@ class LintCommandTest extends TestBase
     #[DataProvider('getValueProvider')]
     public function testLint($file, $expected_output, $expected_exit_code)
     {
-        $this->application->add(new LintCommand());
+        $this->application->addCommand(new LintCommand());
 
         $command = $this->application->find('lint');
         $commandTester = new CommandTester($command);

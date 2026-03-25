@@ -55,7 +55,7 @@ class UnsetKeyCommandTest extends TestBase
      */
     protected function getCommand()
     {
-        $this->application->add(new UnsetKeyCommand());
+        $this->application->addCommand(new UnsetKeyCommand());
         $command = $this->application->find('unset:key');
 
         return $command;

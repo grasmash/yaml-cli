@@ -56,7 +56,7 @@ class UpdateValueCommandTest extends TestBase
      */
     protected function getCommand(): Command
     {
-        $this->application->add(new UpdateValueCommand());
+        $this->application->addCommand(new UpdateValueCommand());
         return $this->application->find('update:value');
     }
 
