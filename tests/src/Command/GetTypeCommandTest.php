@@ -3,6 +3,7 @@
 namespace Grasmash\YamlCli\Tests\Command;
 
 use Grasmash\YamlCli\Command\GetTypeCommand;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Grasmash\YamlCli\Tests\TestBase;
 use Symfony\Component\Console\Tester\CommandTester;
 
@@ -11,9 +12,8 @@ class GetTypeCommandTest extends TestBase
 
     /**
      * Tests the 'get:value' command.
-     *
-     * @dataProvider getValueProvider
      */
+    #[DataProvider('getValueProvider')]
     public function testGetValue($file, $key, $expected_output, $expected_exit_code)
     {
         $this->application->add(new GetTypeCommand());
@@ -37,7 +37,7 @@ class GetTypeCommandTest extends TestBase
      * @return array
      *   An array of values to test.
      */
-    public function getValueProvider()
+    public static function getValueProvider()
     {
 
         $file = 'tests/resources/good.yml';

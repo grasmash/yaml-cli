@@ -2,6 +2,7 @@
 
 namespace Grasmash\YamlCli\Tests\Command;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use Grasmash\YamlCli\Tests\TestBase;
 
 class ApplicationTest extends TestBase
@@ -9,9 +10,8 @@ class ApplicationTest extends TestBase
 
     /**
      * Tests that all expected commands are available in the application.
-     *
-     * @dataProvider getValueProvider
      */
+    #[DataProvider('getValueProvider')]
     public function testApplication($expected)
     {
         $bin = realpath(__DIR__ . '/../../../bin/yaml-cli');
@@ -25,7 +25,7 @@ class ApplicationTest extends TestBase
      * @return array
      *   An array of values to test.
      */
-    public function getValueProvider(): array
+    public static function getValueProvider(): array
     {
         return [
             ['get:value'],

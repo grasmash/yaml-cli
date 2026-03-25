@@ -18,7 +18,7 @@ class GetTypeCommand extends CommandBase
     /**
      * {inheritdoc}
      */
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('get:type')
