@@ -11,11 +11,6 @@
             <directory suffix=".php">src</directory>
         </include>
     </source>
-    <coverage>
-        <report>
-            <clover outputFile="build/logs/clover.xml"/>
-        </report>
-    </coverage>
     <testsuites>
         <testsuite name="Yaml CLI Test Suite">
             <directory>tests/src</directory>
