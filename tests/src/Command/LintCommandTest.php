@@ -3,6 +3,7 @@
 namespace Grasmash\YamlCli\Tests\Command;
 
 use Grasmash\YamlCli\Command\LintCommand;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Grasmash\YamlCli\Tests\TestBase;
 use Symfony\Component\Console\Output\Output;
 use Symfony\Component\Console\Tester\CommandTester;
@@ -12,12 +13,11 @@ class LintCommandTest extends TestBase
 
     /**
      * Tests the 'lint' command.
-     *
-     * @dataProvider getValueProvider
      */
+    #[DataProvider('getValueProvider')]
     public function testLint($file, $expected_output, $expected_exit_code)
     {
-        $this->application->add(new LintCommand());
+        $this->application->addCommand(new LintCommand());
 
         $command = $this->application->find('lint');
         $commandTester = new CommandTester($command);
@@ -37,7 +37,7 @@ class LintCommandTest extends TestBase
      * @return array
      *   An array of values to test.
      */
-    public function getValueProvider()
+    public static function getValueProvider()
     {
 
         return [

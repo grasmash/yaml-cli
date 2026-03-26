@@ -31,10 +31,10 @@ use Grasmash\YamlCli\Command\UpdateValueCommand;
 use Symfony\Component\Console\Application;
 
 $application = new Application('yaml-cli', '@package_version@');
-$application->add(new GetValueCommand());
-$application->add(new GetTypeCommand());
-$application->add(new LintCommand());
-$application->add(new UnsetKeyCommand());
-$application->add(new UpdateKeyCommand());
-$application->add(new UpdateValueCommand());
+$application->addCommand(new GetValueCommand());
+$application->addCommand(new GetTypeCommand());
+$application->addCommand(new LintCommand());
+$application->addCommand(new UnsetKeyCommand());
+$application->addCommand(new UpdateKeyCommand());
+$application->addCommand(new UpdateValueCommand());
 $application->run();

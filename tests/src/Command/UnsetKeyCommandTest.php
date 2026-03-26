@@ -4,6 +4,7 @@ namespace Grasmash\YamlCli\Tests\Command;
 
 use Dflydev\DotAccessData\Data;
 use Grasmash\YamlCli\Command\UnsetKeyCommand;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Grasmash\YamlCli\Tests\TestBase;
 use Symfony\Component\Console\Tester\CommandTester;
 
@@ -24,9 +25,8 @@ class UnsetKeyCommandTest extends TestBase
 
     /**
      * Tests the 'unset:key' command.
-     *
-     * @dataProvider getValueProvider
      */
+    #[DataProvider('getValueProvider')]
     public function testUnsetKey($filename, $key, $expected_output, $expected_exit_code)
     {
         $commandTester = $this->runCommand($filename, $key);
@@ -55,7 +55,7 @@ class UnsetKeyCommandTest extends TestBase
      */
     protected function getCommand()
     {
-        $this->application->add(new UnsetKeyCommand());
+        $this->application->addCommand(new UnsetKeyCommand());
         $command = $this->application->find('unset:key');
 
         return $command;
@@ -90,7 +90,7 @@ class UnsetKeyCommandTest extends TestBase
      * @return array
      *   An array of values to test.
      */
-    public function getValueProvider()
+    public static function getValueProvider()
     {
         $filename = 'tests/resources/temp.yml';
 

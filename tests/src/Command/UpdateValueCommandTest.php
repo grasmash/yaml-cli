@@ -4,6 +4,7 @@ namespace Grasmash\YamlCli\Tests\Command;
 
 use Dflydev\DotAccessData\Data;
 use Grasmash\YamlCli\Command\UpdateValueCommand;
+use PHPUnit\Framework\Attributes\DataProvider;
 use Grasmash\YamlCli\Tests\TestBase;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Tester\CommandTester;
@@ -25,9 +26,8 @@ class UpdateValueCommandTest extends TestBase
 
     /**
      * Tests the 'update:value' command.
-     *
-     * @dataProvider getValueProvider
      */
+    #[DataProvider('getValueProvider')]
     public function testUpdateValue($file, $key, $value, $type, $expected_value, $expected_output, $expected_exit_code)
     {
         $commandTester = $this->runCommand($file, $key, $value, $type);
@@ -56,7 +56,7 @@ class UpdateValueCommandTest extends TestBase
      */
     protected function getCommand(): Command
     {
-        $this->application->add(new UpdateValueCommand());
+        $this->application->addCommand(new UpdateValueCommand());
         return $this->application->find('update:value');
     }
 
@@ -97,7 +97,7 @@ class UpdateValueCommandTest extends TestBase
      * @return array
      *   An array of values to test.
      */
-    public function getValueProvider(): array
+    public static function getValueProvider(): array
     {
         $file = 'tests/resources/temp.yml';
 

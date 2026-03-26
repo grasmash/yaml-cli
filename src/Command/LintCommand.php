@@ -17,7 +17,7 @@ class LintCommand extends CommandBase
     /**
      * {inheritdoc}
      */
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('lint')

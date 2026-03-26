@@ -20,7 +20,7 @@ class UpdateValueCommand extends CommandBase
     /**
      * {inheritdoc}
      */
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('update:value')
